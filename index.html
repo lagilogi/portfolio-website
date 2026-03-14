@@ -8,6 +8,11 @@
     <meta name="description" content="Find all my web projects neatly listed here.">
     <meta name="author" content="Wouter">
 
+    <!-- Linking to resources -->
+    <link rel="stylesheet" href="./style.css">
+    <script type="text/javascript" src="main.js" defer></script>
+    <link rel="icon" type="image/png" href="./assets/favicon.png">
+
     <!-- Sharing meta data -->
     <meta property="og:title" content="Wouter's Web Portfolio">
     <meta property="og:description" content="Find all my web projects neatly listed here.">
@@ -17,10 +22,6 @@
     <meta name="twitter:description" content="Find all my web projects neatly listed here.">
     <meta name="twitter:image" content="./assets/temp_logo.png">
     <meta name="twitter:card" content="summary-large-image">
-
-    <!-- Linking to resources -->
-    <link rel="stylesheet" href="./style.css">
-    <script type="text/javascript" src="main.js" defer></script>
   </head>
 
   <body>
@@ -57,7 +58,7 @@
       <section id="about-me">
         <div class="about-me-container">
           <div id="img-name">
-            <img src="./assets/profile-picture.webp" class="profile-img"/>
+            <img src="./assets/profile-picture.webp" alt="Picture of me" class="profile-img"/>
             <div id="name-tagline">
               <h1>Wouter's portfolio</h1>
               <p id="tagline">Junior Fullstack Developer</p>
@@ -137,15 +138,9 @@
               </ul>
             </div>
             <div class="edu-links">
-              <a href="https://github.com/lagilogi/codam/" target="_blank" rel="noopener noreferrer">
-                See my full Codam projects repository
-                <img src="./assets/external-link-icon.svg" alt="" aria-hidden="true" width="16px" height="16px"/>
-              </a>
+              <a href="https://github.com/lagilogi/codam/" target="_blank" rel="noopener noreferrer">See my full Codam projects repository</a>
               &nbsp;|&nbsp;
-              <a href="https://www.codam.nl/en/curriculum/" target="_blank" rel="noopener noreferrer">
-                See Codam's curriculum
-                <img src="./assets/external-link-icon.svg" alt="" aria-hidden="true" width="16px" height="16px"/>
-              </a>
+              <a href="https://www.codam.nl/en/curriculum/" target="_blank" rel="noopener noreferrer">See Codam's curriculum</a>
             </div>
           </div>
         </div>
@@ -157,7 +152,7 @@
         <div id="projects-container">
 
           <div class="project-card">  <!-- Block survivors -->
-            <img src="./assets/block-survivors-game.webp" alt="Block Survivors Game menu"/>
+            <img src="./assets/block-survivors-game.webp" alt="Block Survivors Game menu" loading="lazy"/>
             <div class="project-information">
               <h3>Block Survivors</h3>
               <p>An SPA Web game with enemies, bosses, permanent upgrades, achievements, statistics and persisting player progression.</p>
@@ -168,13 +163,13 @@
                 <li>Phaser3</li>
               </ul>
               <a class="project-link-working" href="https://blocksurvivors.com/" target="_blank" rel="noopener noreferrer">
-                Go to website
+                Go to Block Survivors
               </a>
             </div>
           </div>
 
           <div class="project-card">  <!-- BreatheWell -->
-            <img src="./assets/breathewell-home-and-exercise-page.webp" alt="Guided breathing exercise - Box breathing"/>
+            <img src="./assets/breathewell-home-and-exercise-page.webp" alt="Guided breathing exercise - Box breathing" loading="lazy"/>
             <div class="project-information">
               <h3>BreatheWell</h3>
               <p>A web app with a variety of guided breathing exercises for different moods and needs.</p>
@@ -184,14 +179,14 @@
                 <li>TypeScript</li>
               </ul>
               <a class="project-link-working" href="https://breathewell.me/" target="_blank" rel="noopener noreferrer">
-                Go to website
+                Go to BreatheWell
               </a>
             </div>
           </div>
 
 
           <div class="project-card">  <!-- Pocket Tools -->
-            <img src="./assets/Pocket-Tools-homepage-screenshot.webp" alt="Pocket Tools homepage screenshot"/>
+            <img src="./assets/Pocket-Tools-homepage-screenshot.webp" alt="Pocket Tools homepage screenshot" loading="lazy"/>
             <div class="project-information">
               <h3>Pocket Tools</h3>
               <p>An Ecommerce website for handy and fun multitools in a variety of shapes, which you can hang on your keychains, fit your wallet and your pockets.</p>
@@ -201,13 +196,13 @@
                 <li>WooCommerce</li>
               </ul>
               <a class="project-link-working" href="https://pocket-tools.shop" target="_blank" rel="noopener noreferrer">
-                Go to website
+                Go to Pocket Tools
               </a>
             </div>
           </div>
 
           <div class="project-card">  <!-- Pathfinding Algorithms -->
-            <img src="./assets/pf-coming-soon.webp" alt="Coming soon image"/>
+            <img src="./assets/pf-coming-soon.webp" alt="Coming soon image" loading="lazy"/>
             <div class="project-information">
               <h3>Pathfinding Algorithms</h3>
               <p>An interactive visualizer for different pathfinding algorithms.</p>
@@ -223,7 +218,7 @@
           </div>
 
           <div class="project-card">  <!-- Reaction Time -->
-            <img src="./assets/rt-coming-soon.webp" alt="Coming soon image"/>
+            <img src="./assets/rt-coming-soon.webp" alt="Coming soon image" loading="lazy"/>
             <div class="project-information">
               <h3>Reaction Time Test</h3>
               <p>A fun game to test your reaction time.</p>

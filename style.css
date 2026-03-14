@@ -7,7 +7,7 @@
   --accent: oklch(68% 0.23 45);
   --border: oklch(100% 0 0 / 10%);
   --box-shadow: oklch(90% 0 0);
-  --pattern-color: oklch(68% 0.23 45 / 0.2);
+  --pattern-color: oklch(68% 0.23 45 / 0.25);
 
   --accent-gradient: linear-gradient(to right, oklch(64% 0.23 45), oklch(72% 0.23 45));
   --bg-gradient: radial-gradient(oklch(30% 0.04 255), oklch(21% 0.04 255));
@@ -45,7 +45,6 @@ body {
   --box-shadow: oklch(25% 0.05 255);
   --pattern-color: oklch(68% 0.23 45 / 0.2);
 
-  --accent-gradient: linear-gradient(to right, oklch(65% 0.21 45), oklch(58% 0.21 45));
   --bg-gradient: linear-gradient(135deg, oklch(100% 0 0), oklch(97% 0.01 255));
 }
 
@@ -56,7 +55,10 @@ body {
 /* ----- Components ----- */
 h1 {
   font-size: 2.5rem;
-  color: var(--accent);
+  color: transparent;
+  background-image: var(--accent-gradient);
+  background-clip: text;
+
 }
 h2 {
   font-size:3rem;
@@ -213,6 +215,7 @@ nav a:hover {
 }
 .profile-img {
   width: 80px;
+  height: 80px;
   border-radius: 100%;
   border: 1px solid var(--border);
   padding: 2px;
@@ -411,8 +414,7 @@ nav a:hover {
   transition: all .2s ease;
 }
 .project-card:hover {
-  border-width: 2px;
-  border-color: var(--accent);
+  box-shadow: 0 0 40px 5px var(--accent);
   transform: scale(1.01);
 }
 .project-card img {
@@ -472,7 +474,7 @@ nav a:hover {
 }
 .project-link-working:hover {
   border: 1px solid var(--accent);
-  color: var(var(--accent));
+  color: var(--accent);
 }
 
 .project-link-locked {

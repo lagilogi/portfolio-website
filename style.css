@@ -415,8 +415,12 @@ nav a:hover {
   transition: all .2s ease;
 }
 .project-card:hover {
-  box-shadow: 0 0 40px 5px var(--accent);
+  box-shadow: 0 0 20px 1px var(--accent);
   transform: scale(1.01);
+}
+.project-locked:hover {
+  box-shadow: none;
+  transform: scale(1);
 }
 .project-card img {
   width: 100%;

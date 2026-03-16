@@ -1,0 +1,205 @@
+/* Global css file for: reset, variables + standard components, header + nav, footer */
+
+/* Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* Variables + standard components */
+:root {
+  --bg-dark: oklch(16% 0.01 255);
+  --bg: oklch(25% 0.01 255);
+  --bg-light: oklch(30% 0.01 255);
+  --text: oklch(92% 0.02 255);
+  --text-muted: oklch(78% 0.03 255);
+  --accent: oklch(68% 0.23 45);
+  --border: oklch(100% 0 0 / 10%);
+  --box-shadow: oklch(90% 0 0);
+  --pattern-color: oklch(68% 0.23 45 / 0.25);
+
+  --accent-gradient: linear-gradient(to right, oklch(64% 0.23 45), oklch(72% 0.23 45));
+  --bg-gradient: radial-gradient(oklch(30% 0.04 255), oklch(21% 0.04 255));
+
+  --pattern-size: 24px;
+}
+.lightmode {
+  --bg-dark: oklch(98% 0.01 255);
+  --bg: oklch(99% 0 0);
+  --bg-light: oklch(100% 0 0);
+  --text: oklch(18% 0.04 255);
+  --text-muted: oklch(45% 0.02 255);
+  --border: oklch(0% 0 0 / 20%);
+  --box-shadow: oklch(25% 0.05 255);
+  --pattern-color: oklch(68% 0.23 45 / 0.2);
+
+  --bg-gradient: linear-gradient(135deg, oklch(100% 0 0), oklch(97% 0.01 255));
+}
+
+html, body {
+  scroll-behavior: smooth;
+}
+body {
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg-dark);
+  background-image: radial-gradient(var(--pattern-color) 1px, transparent 0);
+  background-size: var(--pattern-size) var(--pattern-size);
+  background-attachment: fixed;
+  color: var(--text);
+  transition: background-color 0.5s ease, color 0.2s ease;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: transparent;
+  background-image: var(--accent-gradient);
+  background-clip: text;
+
+}
+h2 {
+  font-size:3rem;
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 40px;
+  color: var(--accent);
+}
+h3 {
+  font-size: 2rem;
+}
+p {
+  line-height: 1.5;
+}
+section {
+  scroll-margin-top: 80px;
+  margin-bottom: 80px;
+}
+main {
+  padding: 0 5px;
+}
+svg {
+  fill: var(--text)
+}
+a {
+  color: var(--text-muted);
+}
+a:hover {
+  color: var(--accent)
+}
+
+
+
+/* ----- Header + nav ----- */
+header {
+  border-bottom: 1px solid var(--accent);
+  width: 100%;
+  position: sticky;
+  top: 0%;
+  background-color: var(--bg-dark);
+  z-index: 1000;
+}
+header svg {
+  fill: var(--text);
+}
+nav {
+  width: min(720px, 100%);
+  justify-items: center;
+  justify-self: center;
+  position: relative;
+}
+nav ul {
+  list-style: none;
+  display: flex;
+}
+nav a {
+  display: flex;
+  text-decoration: none;
+  color: var(--text);
+  padding: 1em 2em;
+}
+nav a:hover {
+  background: var(--bg);
+}
+#open-navbar-button {
+  display: none;
+  background: none;
+  border: none;
+  padding: .5em;
+  margin-left: auto;
+}
+#close-navbar-button {
+  display: none;
+  background: none;
+  border: none;
+  padding: 1em;
+}
+#theme-switch {
+  display: flex;
+  background: none;
+  border: none;
+  border-radius: 100%;
+  padding: .5em;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%)
+}
+#theme-switch:hover {
+  background:var(--accent);
+}
+#overlay {
+  background: rgba(0, 0, 0, .3);
+  position: fixed;
+  inset: 0;
+  z-index: 9;
+  display: none;
+}
+
+@media screen and (max-width: 600px) {
+  #open-navbar-button, #close-navbar-button {
+    display: block;
+  }
+  nav {
+    position: fixed;
+    background-color: var(--bg);
+    top: 0;
+    right: -100%;
+    height: 100dvh;
+    width: min(12em, 100%);
+    z-index: 10;
+    border-left: 1px solid var(--accent);
+    transition: right .2s ease-out;
+  }
+  nav ul {
+    width: 100%;
+    flex-direction: column;
+  }
+  nav a {
+    width: 100%;
+    padding-left: 1.5em;
+  }
+  body.nav-open #overlay {
+    display: block;
+  }
+  body.nav-open nav {
+    right: 0;
+  }
+  #theme-switch {
+    top: 32px;
+    right: 10px;
+  }
+}
+
+
+
+/* ----- Footer ----- */
+footer {
+  margin-top: 100px;
+  padding: 10px;
+  text-align: center;
+  border-top: 1px dotted var(--accent);
+  color: var(--text-muted);
+  background-color: var(--bg-dark)
+}

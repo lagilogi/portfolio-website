@@ -99,6 +99,7 @@ header {
   position: sticky;
   top: 0%;
   background-color: var(--bg-dark);
+  z-index: 1000;
 }
 header svg {
   fill: var(--text);

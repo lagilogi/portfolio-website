@@ -1,0 +1,26 @@
+{
+  "name": "portfolio-website",
+  "version": "1.0.0",
+  "description": "Hey there and welcome to my portfolio website repo!",
+  "homepage": "https://github.com/lagilogi/portfolio-website#readme",
+  "bugs": {
+    "url": "https://github.com/lagilogi/portfolio-website/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lagilogi/portfolio-website.git"
+  },
+  "license": "UNLICENSED",
+  "author": "lagilogi",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "vite": "^8.0.0"
+  }
+}

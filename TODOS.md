@@ -1,46 +1,51 @@
 ## **Website todos**
 
-### General
-#### project structure and codebase setup:
-- Set up folder structure for multiple html, css and js/ts files
-- Set up basic html templates
-- Replace js code/files with ts code/files
-
-#### Setting up local environment
-- Set up environment to use Node.js (npm), vite and typescript
+### project structure and codebase setup:
+- Set up folder structure for multiple HTML, CSS and JavaScript/TypeScript files
+- Set up basic HTML templates
+- Init npm in codebase
+- Setup package.json
+- Install and set up basic vite
+- Set up vite config properly
+- Install and set up typescript
+- Set up tsconfig
+- Replace JavaScript code/files with TypeScript code/files
 - Set up linting
+  - Set up linting for 
+  - (Set up linting for HTML?)
+  - (Set up linting for CSS?)
 - Set up pre-commit lint check (https://www.youtube.com/watch?v=Kr4VxMbF3LY)
 
-#### CI/CD (Git actions)
+### CI/CD (Git actions)
 - Set up github actions to:
   - Check linting
   - Run unit tests
   - Copilot code review
-  - Compile typescripts to javascript and bundle javascript and css files
+  - Deploy to Github Pages
 
 
 ### Styling
 - Set values of margins, paddings, font, font sizings, etc as variables in :root for consistency
 - Set global styling for components like buttons
-- Add utility classes in css
+- Add utility classes in CSS
 
 
 ### Projects
 #### Reaction Time page
-- Add html template
+- Add HTML template
 - Add interactive section
   - Big colored section with text
 - Add user instructions
 - Add project explanation: description, goal, tech, challenges/lessons
 - Add styling & responsive
-- Add js logic
+- Add JavaScript logic
   - States
   - Store results
   - Display results
 - Write unit tests
 
 #### Pathfinding page
-- Add html template
+- Add HTML template
 - Add interactive section
   - Space for the maze
   - Options:
@@ -53,7 +58,7 @@
 - Add user instructions
 - Add project explanation: description, goal, tech, challenges/lessons
 - Add styling
-- Add js logic
+- Add JavaScript logic
   - States: ready, running, pause, ended
   - Load and display map
   - Algorithms: BFS, DFS, Dijkstra, A*
@@ -68,9 +73,15 @@
 
 Last finished TODOS appear at the top
 
-### General
+### project structure and codebase setup:
+- ~~Init npm in codebase~~
+- ~~Setup package.json~~
 - ~~Add a workflow.md~~
 
+### CI/CD (Git actions)
+- Set up github actions to:
+  - ~~Deploy to Github Pages with deploy.yml file~~
+
 ### Styling
-- ~~Split css into global and page specific files~~
+- ~~Split CSS into global and page specific files~~
 

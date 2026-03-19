@@ -94,9 +94,13 @@
 }
 .vertical-line-styling {
   width: 5px;
-  background: linear-gradient(lightgrey 0%, transparent 100%);
+  background: linear-gradient(var(--accent) 40%, white 50%, var(--accent) 60%);
+  background-size: 100% 200%;
   border-radius: 0 0 50% 50%;
-  /* border: 1px solid var(--accent); */
+  border-left: 1px var(--bg) solid;
+  border-right: 1px var(--bg) solid;
+
+  animation: line-glow 4s linear infinite;
 }
 .vertical-line-1 {
   height: 45px;
@@ -109,6 +113,14 @@
 }
 .vertical-line-4 {
   height: 150px;
+}
+@keyframes line-glow {
+  from {
+    background-position: 0% 150%;
+  }
+  to {
+    background-position: 0% -50%;
+  }
 }
 
 

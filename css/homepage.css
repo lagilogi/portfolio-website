@@ -10,8 +10,29 @@
   border-radius: 10px;
   padding: min(30px, 4vw);
   background: var(--bg);
-  box-shadow: 0 -2px 40px -5px var(--accent);
+  /* box-shadow: 0 -2px 40px -5px var(--accent); */
+
+  animation: aboutme-box-shadow 12s linear infinite;
 }
+@keyframes aboutme-box-shadow {
+  0% {
+    box-shadow: 0px -2px 40px -5px var(--accent);
+  }
+  25% {
+    box-shadow: -2px 4px 40px -2px var(--accent2);
+  }
+  50% {
+    box-shadow: -2px 0px 40px -5px var(--accent);
+  }
+  75% {
+    box-shadow: 0px 0px 40px -5px var(--accent2);
+  }
+  100% {
+    box-shadow: 0px -2px 40px -5px var(--accent);
+  }
+}
+
+
 #img-name {
   display:flex;
   flex-wrap: wrap;

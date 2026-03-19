@@ -30,7 +30,13 @@
 - Add utility classes in CSS
 
 
-### Projects
+### Pages & Projects
+#### Homepage
+- Add slight animation to box-shadow around Project cards
+- Add image to Education card
+- Split up Projects into Projects and Playground, where playground are small projects that have their own page on the website
+- Make project cards look more modern
+
 #### Reaction Time page
 - Add HTML template
 - Add interactive section
@@ -85,3 +91,6 @@ Last finished TODOS appear at the top
 ### Styling
 - ~~Split CSS into global and page specific files~~
 
+### Pages & Projects
+- ~~Add animation to vertical lines underneath About me-card~~
+- ~~Add animation to box shadow around About me-card~~

@@ -2,7 +2,6 @@
 
 ### project structure and codebase setup:
 - Set up folder structure for multiple HTML, CSS and JavaScript/TypeScript files
-- Set up basic HTML templates
 - Init npm in codebase
 - Setup package.json
 - Install and set up basic vite
@@ -80,6 +79,7 @@
 Last finished TODOS appear at the top
 
 ### project structure and codebase setup:
+- ~~Set up basic HTML templates~~
 - ~~Init npm in codebase~~
 - ~~Setup package.json~~
 - ~~Add a workflow.md~~

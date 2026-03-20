@@ -2,27 +2,27 @@
 <html lang="en">
   <head>
     <!-- Standard meta data -->
-    <title>MODIFY TITLE</title>
+    <title>Test your Reaction Time</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Test your Reaction Speed">
+    <meta name="description" content="Test your Reaction Time by clicking as fast as possible when the red banner turns green.">
     <meta name="author" content="Wouter">
 
     <!-- Linking to resources -->
     <link rel="stylesheet" href="/css/global.css">
-    <link rel="stylesheet" href=""> <!-- ADD PAGE SPECIFIC STYLESHEET -->
-    <script src="/js/main.js" defer></script> <!-- Needed for dark/light mode and navigation responsiveness -->
-    <script src="" defer></script> <!-- ADD PAGE SPECIFIC CODE ENTRY -->
+    <link rel="stylesheet" href="./style.css">
+    <script src="/js/main.js" defer></script>
+    <script src="./reaction-time.ts" defer></script>
     <link rel="icon" type="image/png" href="/assets/favicon.png">
 
     <!-- Sharing meta data -->
-    <meta property="og:title" content="MODIFY TITLE">
-    <meta property="og:description" content="MODIFY DESCRIPTION">
-    <meta property="og:image" content="MODIFY IMAGE ./assets/....">
-    <meta property="og:url" content="MODIFY LINK https://lagilogi.github.io/portfolio-website/.......">
-    <meta name="twitter:title" content="MODIFY TITLE">
-    <meta name="twitter:description" content="MODIFY DESCRIPTION">
-    <meta name="twitter:image" content="MODIFY IMAGE ./assets/....">
+    <meta property="og:title" content="Test your Reaction Time">
+    <meta property="og:description" content="Test your Reaction Time by clicking as fast as possible when the red banner turns green.">
+    <meta property="og:image" content="MODIFY IMAGE ./assets/...."> <!-- TODO -->
+    <meta property="og:url" content="https://lagilogi.github.io/portfolio-website/reaction-time/">
+    <meta name="twitter:title" content="Test your Reaction Time">
+    <meta name="twitter:description" content="Test your Reaction Time by clicking as fast as possible when the red banner turns green.">
+    <meta name="twitter:image" content="MODIFY IMAGE ./assets/...."> <!-- TODO -->
     <meta name="twitter:card" content="summary-large-image">
   </head>
 
@@ -55,9 +55,38 @@
       <div id="overlay" onclick="closeNavbar()" aria-hidden="true"></div>
     </header>
 
-    <!-- Where the NEW magic happens: -->
     <main>
-      
+      <section id="game">
+        <div id="click-element" onclick="runReactionTime()">
+          <h1>Test your reaction time</h1>
+          <p id="click-element-text">Click here to start</p>
+        </div>
+      </section>
+      <section id="explanation">
+        <p>Click anywhere inside the <span id="blue">BLUE</span> banner above to start.<br>Click as fast as possible when the <span id="red">RED</span> background turns <span id="green">GREEN</span></p>
+        <br>
+        <p>Reaction times:</p>
+        <table id="reaction-table">
+          <thead>
+            <th scope="col">Round 1</th>
+            <th scope="col">Round 2</th>
+            <th scope="col">Average</th>
+          </thead>
+        </table>
+      </section>
+
+      <section id="about">
+        <h2>About the Reaction Time project</h2>
+        <p>The Reaction Time project was the first project to be added to my portfolio.</p>
+        <h3>The goals</h3>
+        <p>The goal was to recreate the Reaction Time test by <a href="https://humanbenchmark.com/">Human Benchmark</a>. Since I don't have access to a database through github pages, I wanted to learn to work with local storage</p>
+        <h3>Challenges & lessons</h3>
+        <ul>
+          <li><b>Lesson:</b> Use localstorage for persistent data for returning visitors</li>
+          <li><b>Lesson:</b> Design a proper way of showing data</li>
+          <li><b>Challenge:</b> ...</li>
+        </ul>
+      </section>
     </main>
 
     <footer>

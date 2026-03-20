@@ -1,0 +1,52 @@
+:root {
+  --blue: #00c0de;
+  --red: #d43737;
+  --green: #60e663;
+}
+
+
+
+/* SECTION Reaction time  */
+h1 {
+  color: white;
+}
+
+#blue {
+  color: var(--blue);
+  font-weight: 700;
+}
+#green {
+  color: var(--green);
+  font-weight: 700;
+}
+#red {
+  color: var(--red);
+  font-weight: 700;
+}
+
+#click-element {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 400px;
+  background: var(--blue);
+  user-select: none;
+}
+#click-element p {
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+
+/* SECTION About Reaction Time */
+#reaction-table {
+  border: 3px solid var(--border);
+  border-collapse: collapse;
+}
+td, th {
+  border: 1px solid var(--border);
+  padding: 5px 10px;
+}

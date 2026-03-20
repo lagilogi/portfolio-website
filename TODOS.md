@@ -37,16 +37,15 @@
 - Make project cards look more modern
 
 #### Reaction Time page
-- Add HTML template
-- Add interactive section
-  - Big colored section with text
-- Add user instructions
+- Show last 10 scores and averages
 - Add project explanation: description, goal, tech, challenges/lessons
 - Add styling & responsive
 - Add JavaScript logic
-  - States
-  - Store results
-  - Display results
+  - ~~States~~
+  - ~~Store results ~~
+  - ~~Display results~~
+  - Update last 10 scores
+  - Refactor to make more modular
 - Write unit tests
 
 #### Pathfinding page
@@ -92,5 +91,12 @@ Last finished TODOS appear at the top
 - ~~Split CSS into global and page specific files~~
 
 ### Pages & Projects
+#### Homepage
 - ~~Add animation to vertical lines underneath About me-card~~
 - ~~Add animation to box shadow around About me-card~~
+
+#### Reaction Time page
+- ~~Add HTML template~~
+- ~~Add interactive section~~
+  - ~~Big colored section with text~~
+- ~~Add user instructions paragraph~~

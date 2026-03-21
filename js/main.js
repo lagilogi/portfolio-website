@@ -32,13 +32,18 @@ themeSwitch.addEventListener('click', () => {
 // MOBILE SIDE MENU
 // Variables
 const hamburgerMenu = document.getElementById('open-navbar-button')
+const hamburgerMenuClose = document.getElementById('close-navbar-button')
 const navbar = document.getElementById('navbar')
+const navbarOverlay = document.getElementById('close-navbar-button')
 const media = window.matchMedia("(width < 601px)")
 const navLinks = document.querySelectorAll('nav a')
 let isMobile
 
 
 // Event listeners
+hamburgerMenu.addEventListener('click', () => openNavbar())
+hamburgerMenuClose.addEventListener('click', () => closeNavbar())
+navbarOverlay.addEventListener('click', () => closeNavbar())
 media.addEventListener('change', (e) => updateNavbar(e))
 
 navLinks.forEach(link => {
@@ -58,6 +63,7 @@ function updateNavbar(e) {
     navbar.removeAttribute('inert')
 }
 function openNavbar() {
+  console.log('Clicked')
   if (isMobile) {
     document.body.classList.add('nav-open')
     hamburgerMenu.setAttribute('aria-expanded', 'true')

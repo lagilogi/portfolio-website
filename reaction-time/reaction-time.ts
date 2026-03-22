@@ -1,3 +1,4 @@
+// All different states for the reaction speed game
 enum State {
   READY,
   WAIT,
@@ -6,11 +7,13 @@ enum State {
   RESULT
 }
 
+// The object to keep track of game state and round
 const gameState = {
   state: State.READY,
   round: 1,
 }
 
+// Global variables
 const clickElement: HTMLElement = document.getElementById('click-element')!
 const reactionTable: HTMLElement = document.getElementById('reaction-table')!
 const maxRounds: number = 2
@@ -18,20 +21,21 @@ const minWaitTime: number = 800
 const addWaitTime: number = 2000
 let waitTime: number = 0
 let currTime: number = 0
-let reactionTimes: number[] = []
+let currReactionTimes: number[] = []
 let timeoutId: number
 
 
 
+// Game functions
 function readyScreen() {
   clickElement.style.background = '#00c0de'
   clickElement.innerHTML = `
     <h1>Test your reaction time</h1>
     <p>Click here to start</p>`
-  clickElement.innerHTML += `<p><b>Results:</b> ${getResultsString()} ms</p><p>Average: ${getAverageTime()}`
+  clickElement.innerHTML += `<p><b>Results:</b> ${getResultsString()} ms</p><p>Average: ${getAverageTime(currReactionTimes)}`
   gameState.round = 1
   gameState.state = State.READY
-  reactionTimes = []
+  currReactionTimes = []
 }
 function waitScreen() {
   clickElement.style.background = 'var(--red)'
@@ -56,7 +60,7 @@ function resultScreen() {
   clickElement.innerHTML = `
     <p>${reactionTime} ms - Round ${gameState.round} / ${maxRounds}</p>
     <p><i>Click for next round</i></p>`
-  reactionTimes.push(reactionTime)
+  currReactionTimes.push(reactionTime)
   gameState.state = State.RESULT
   gameState.round += 1;
 }
@@ -70,11 +74,12 @@ function errorScreen() {
 function updateReactionTimes() {
   let p: HTMLElement = document.createElement('p')
   console.log(reactionTimesArr)
-  reactionTimesArr.push(reactionTimes)
-  createTableRow()
+  reactionTimesArr.push(currReactionTimes)
+  createTableRow(currReactionTimes)
   updateLocalStorage()
 }
 
+// This function gets called everytime a user clicks on the banner on the page. After the click we check what the game state is, and what to do next
 function runReactionTime() {
   if (gameState.state === State.READY) {
     waitScreen()
@@ -99,16 +104,17 @@ function runReactionTime() {
   }
 }
 
-// Create table row
-function createTableRow() {
+
+// Create table row to show on the page
+function createTableRow(reactionTimes: number[]) {
   const row: HTMLElement = document.createElement('tr')
   reactionTimes.forEach((time) => {
     const cell: HTMLElement = document.createElement('td')
     cell.textContent = time.toString()
     row.appendChild(cell)
   })
-  const cellAverage: HTMLElement = document.createElement('td') 
-  cellAverage.textContent = getAverageTime().toString()
+  const cellAverage: HTMLElement = document.createElement('td')
+  cellAverage.textContent = getAverageTime(reactionTimes).toString()
   row.appendChild(cellAverage);
 
   reactionTable.appendChild(row);
@@ -116,12 +122,18 @@ function createTableRow() {
 
 
 
-// Get & set localStorage
+// Get & set localStorage for persistent user data.
 let reactionTimesArr: number[][] = []
+
+// We check if localstorage contains reactionTimes key. If yes, we retrieve the value and store it in 'reactionTimesArr' - then use that to generate the
 function getLocalStorage() {
   const result = window.localStorage.getItem('reactionTimes')
-  if (result !== null)
+  if (result !== null) {
     reactionTimesArr = JSON.parse(result)
+    reactionTimesArr.forEach((times) => {
+      createTableRow(times)
+    })
+  }
 }
 function updateLocalStorage() {
   window.localStorage.setItem('reactionTimes', JSON.stringify(reactionTimesArr))
@@ -130,13 +142,13 @@ function updateLocalStorage() {
 
 
 // Utility functions
-function getAverageTime() {
-  return reactionTimes.reduce((total, currValue) => total + currValue, 0) / reactionTimes.length
+function getAverageTime(reactionTimes: number[]) {
+  return Math.round(reactionTimes.reduce((total, currValue) => total + currValue, 0) / reactionTimes.length)
 }
 
 function getResultsString(): string {
   let times: string = ''
-  reactionTimes.forEach((time) => {
+  currReactionTimes.forEach((time) => {
     times += time + ' '
   })
   return times;

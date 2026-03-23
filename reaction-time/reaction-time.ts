@@ -1,4 +1,4 @@
-// All different states for the reaction speed game
+// ----- Model -----
 enum State {
   READY,
   WAIT,
@@ -7,113 +7,153 @@ enum State {
   RESULT
 }
 
-// The object to keep track of game state and round
-const gameState = {
+const config = {
+  maxRounds: 2,
+  minWaitTime: 800,
+  addWaitTime: 2000,
+}
+
+const game = {
   state: State.READY,
   round: 1,
+
+  currentTime: 0,
+  timeoutId: -1,
+
+  currReactionTime: 0,
+  currReactionTimes: [] as number[],
+  allReactionTimes: [] as number[][],
 }
 
-// Global variables
 const clickElement: HTMLElement = document.getElementById('click-element')!
 const reactionTable: HTMLElement = document.getElementById('reaction-table')!
-const maxRounds: number = 2
-const minWaitTime: number = 800
-const addWaitTime: number = 2000
-let waitTime: number = 0
-let currTime: number = 0
-let currReactionTimes: number[] = []
-let timeoutId: number
 
 
-
-// Game functions
+// ----- Controller -----
 function readyScreen() {
-  clickElement.style.background = '#00c0de'
-  clickElement.innerHTML = `
-    <h1>Test your reaction time</h1>
-    <p>Click here to start</p>`
-  clickElement.innerHTML += `<p><b>Results:</b> ${getResultsString()} ms</p><p>Average: ${getAverageTime(currReactionTimes)}`
-  gameState.round = 1
-  gameState.state = State.READY
-  currReactionTimes = []
+  game.round = 1
+  game.state = State.READY
+  render()
+  game.currReactionTimes = []
 }
 function waitScreen() {
-  clickElement.style.background = 'var(--red)'
-  clickElement.innerHTML = `
-    <p>Wait..</p>
-    <p>Round ${gameState.round} / ${maxRounds}</p>`
-  gameState.state = State.WAIT
-  waitTime = minWaitTime + Math.floor(Math.random() * addWaitTime)
-  timeoutId = setTimeout(() => {
+  game.state = State.WAIT
+  render()
+  const waitTime = config.minWaitTime + Math.floor(Math.random() * config.addWaitTime)
+  game.timeoutId = setTimeout(() => {
     clickScreen()
   }, waitTime)
 }
 function clickScreen() {
-  clickElement.style.background = '#60e663'
-  clickElement.innerHTML = '<p>CLICK!</p>'
-  currTime = Date.now()
-  gameState.state = State.CLICK
+  game.currentTime = Date.now()
+  game.state = State.CLICK
+  render()
 }
 function resultScreen() {
-  const reactionTime = Date.now() - currTime
-  clickElement.style.background = 'green'
-  clickElement.innerHTML = `
-    <p>${reactionTime} ms - Round ${gameState.round} / ${maxRounds}</p>
-    <p><i>Click for next round</i></p>`
-  currReactionTimes.push(reactionTime)
-  gameState.state = State.RESULT
-  gameState.round += 1;
+  game.currReactionTime = Date.now() - game.currentTime
+  game.state = State.RESULT
+  game.currReactionTimes.push(game.currReactionTime)
+  render()
+  game.round += 1;
 }
 function errorScreen() {
-  clearTimeout(timeoutId)
-  clickElement.innerHTML = `
-    <p>You clicked too soon. Wait for the background to turn green.</p>
-    <p>Click to continue</p>`
-  gameState.state = State.ERROR
+  game.state = State.ERROR
+  clearTimeout(game.timeoutId)
+  render()
 }
 function updateReactionTimes() {
-  let p: HTMLElement = document.createElement('p')
-  console.log(reactionTimesArr)
-  reactionTimesArr.push(currReactionTimes)
-  createTableRow(currReactionTimes)
+  game.allReactionTimes.push(game.currReactionTimes)
+  renderTableRow(game.currReactionTimes)
   updateLocalStorage()
 }
-
-// This function gets called everytime a user clicks on the banner on the page. After the click we check what the game state is, and what to do next
 function runReactionTime() {
-  if (gameState.state === State.READY) {
+  if (game.state === State.READY) {
     waitScreen()
   }
-  else if (gameState.state === State.WAIT) {
+  else if (game.state === State.WAIT) {
     errorScreen()
   }
-  else if (gameState.state === State.CLICK) {
+  else if (game.state === State.CLICK) {
     resultScreen()
   }
-  else if (gameState.state === State.ERROR) {
+  else if (game.state === State.ERROR) {
     waitScreen()
   }
-  else if (gameState.state === State.RESULT) {
-    if (gameState.round <= maxRounds) {
+  else if (game.state === State.RESULT) {
+    if (game.round <= config.maxRounds) {
       waitScreen()
     }
-    else if (gameState.round > maxRounds) {
+    else if (game.round > config.maxRounds) {
       updateReactionTimes()
       readyScreen()
     }
   }
+  console.log('gamestate:', game.state)
+}
+
+function getAverageTime(reactionTimes: number[]) {
+  if (reactionTimes.length > 0)
+    return Math.round(reactionTimes.reduce((total, currValue) => total + currValue, 0) / reactionTimes.length)
+  else
+    return -1
+}
+
+function getResultsString(): string {
+  let times: string = ''
+  game.currReactionTimes.forEach((time) => {
+    times += time + ' '
+  })
+  return times;
+}
+
+function updateLocalStorage() {
+  window.localStorage.setItem('reactionTimes', JSON.stringify(game.allReactionTimes))
 }
 
 
-// Create table row to show on the page
-function createTableRow(reactionTimes: number[]) {
-  const row: HTMLElement = document.createElement('tr')
+// ----- View -----
+function render() {
+  switch (game.state) {
+    case State.READY:
+      renderBanner('var(--blue)', `
+        <h1>Test your reaction time</h1>
+        <p>Click here to start</p>
+        <p><b>Results:</b> ${getResultsString()} ms</p><p>Average: ${getAverageTime(game.currReactionTimes)}`)
+      break
+    case State.WAIT:
+      renderBanner('var(--red)', `
+        <p>Wait..</p>
+        <p>Round ${game.round} / ${config.maxRounds}</p>`)
+      break
+    case State.CLICK:
+      renderBanner('var(--lightgreen)', '<p>CLICK!</p>')
+      break
+    case State.ERROR:
+      renderBanner('var(--red)', `
+        <p>You clicked too soon. Wait for the background to turn green.</p>
+        <p>Click to continue</p>`)
+      break
+    case State.RESULT:
+      renderBanner('var(--green)', `
+        <p>${game.currReactionTime} ms - Round ${game.round} / ${config.maxRounds}</p>
+        <p><i>Click for next round</i></p>`)
+      break
+  }
+}
+
+function renderBanner(bgcolor: string, text: string) {
+  clickElement.style.background = bgcolor;
+  clickElement.innerHTML = text
+}
+
+function renderTableRow(reactionTimes: number[]) {
+  const row: HTMLTableRowElement = document.createElement('tr')
   reactionTimes.forEach((time) => {
-    const cell: HTMLElement = document.createElement('td')
+    const cell: HTMLTableCellElement = document.createElement('td')
     cell.textContent = time.toString()
     row.appendChild(cell)
   })
-  const cellAverage: HTMLElement = document.createElement('td')
+  const cellAverage: HTMLTableCellElement = document.createElement('td')
   cellAverage.textContent = getAverageTime(reactionTimes).toString()
   row.appendChild(cellAverage);
 
@@ -121,40 +161,37 @@ function createTableRow(reactionTimes: number[]) {
 }
 
 
-
-// Get & set localStorage for persistent user data.
-let reactionTimesArr: number[][] = []
-
-// We check if localstorage contains reactionTimes key. If yes, we retrieve the value and store it in 'reactionTimesArr' - then use that to generate the
-function getLocalStorage() {
+// ----- Startup -----
+function checkIfValidTimesArray(value: unknown): boolean {
+  return Array.isArray(value) &&
+    value.every(
+      row => Array.isArray(row) &&
+        row.every(cell => typeof cell === "number")
+    );
+}
+function getLocalStorage(): number[][] {
   const result = window.localStorage.getItem('reactionTimes')
+  console.log(result)
+
   if (result !== null) {
-    reactionTimesArr = JSON.parse(result)
-    reactionTimesArr.forEach((times) => {
-      createTableRow(times)
-    })
+    try {
+      const parsedResult = JSON.parse(result)
+      if (checkIfValidTimesArray(parsedResult))
+        return parsedResult
+    } catch (e) {
+      console.error("Couldn't retrieve previous rounds data")
+    }
   }
-}
-function updateLocalStorage() {
-  window.localStorage.setItem('reactionTimes', JSON.stringify(reactionTimesArr))
-}
-
-
-
-// Utility functions
-function getAverageTime(reactionTimes: number[]) {
-  return Math.round(reactionTimes.reduce((total, currValue) => total + currValue, 0) / reactionTimes.length)
+  else
+    console.log('No data found')
+  return []
 }
 
-function getResultsString(): string {
-  let times: string = ''
-  currReactionTimes.forEach((time) => {
-    times += time + ' '
-  })
-  return times;
+function startup() {
+  game.allReactionTimes = getLocalStorage()
+  if (game.allReactionTimes.length > 0)
+    game.allReactionTimes.forEach(ele => renderTableRow(ele))
+  clickElement.addEventListener('click', () => runReactionTime())
 }
 
-
-
-// Run setup function
-getLocalStorage()
+startup()

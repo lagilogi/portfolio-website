@@ -56,28 +56,37 @@
     </header>
 
     <main>
-      <section id="game">
+      <section id="banner">
         <div id="click-element">
           <h1>Test your reaction time</h1>
           <p id="click-element-text">Click here to start</p>
         </div>
-
-        <div id="game-information">
-          <div class="how-to-play">
-            <h3>How to play</h3>
-            <p>Click anywhere inside the <span id="blue">BLUE</span> banner above to start.</p>
-            <p>Click as fast as possible when the <span id="red">RED</span> background turns <span id="green">GREEN</span></p>
-          </div>
-          <div>
-            <h3>Reaction times</h3>
-            <table id="reaction-table">
-              <thead>
-                <th scope="col">Round 1</th>
-                <th scope="col">Round 2</th>
-                <th scope="col">Average</th>
-              </thead>
-            </table>
-          </div>
+      </section>
+      <section class="game-information">
+        <div class="info-panel reaction-times">
+          <h3>Reaction times</h3>
+          <table id="reaction-table">
+            <thead>
+              <th colspan="4">rounds</th>
+            </thead>
+            <thead>
+              <th scope="col">1</th>
+              <th scope="col">2</th>
+              <th scope="col">3</th>
+              <th scope="col">4</th>
+              <th scope="col"><abbr title="Average">Avg</abbr></th>
+            </thead>
+          </table>
+        </div>
+        <div class="info-panel how-to-play">
+          <h3>How to play</h3>
+          <ol>
+            <li>Click anywhere inside the <span class="blue">BLUE</span> banner above to start.</li>
+            <li>Click as fast as possible when the <span class="red">RED</span> banner turns <span class="green">GREEN</span></li>
+            <li>Play 4 rounds to see your <b>average</b></li>
+          </ol>
+          <p>Your scores are saved locally. You can reset the scores by clicking the button below.</p>
+          <button id="reset-scores-btn">Reset scores</button>
         </div>
       </section>
 

@@ -8,7 +8,7 @@ enum State {
 }
 
 const config = {
-  maxRounds: 2,
+  maxRounds: 4,
   minWaitTime: 800,
   addWaitTime: 2000,
 }
@@ -118,7 +118,8 @@ function render() {
       renderBanner('var(--blue)', `
         <h1>Test your reaction time</h1>
         <p>Click here to start</p>
-        <p><b>Results:</b> ${getResultsString()} ms</p><p>Average: ${getAverageTime(game.currReactionTimes)}`)
+        <p>Results:<br>${getResultsString()} ms</p>
+        <p>Average: ${getAverageTime(game.currReactionTimes)}`)
       break
     case State.WAIT:
       renderBanner('var(--red)', `

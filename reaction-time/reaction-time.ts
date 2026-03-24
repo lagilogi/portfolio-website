@@ -27,6 +27,7 @@ const game = {
 
 const clickElement: HTMLElement = document.getElementById('click-element')!
 const reactionTable: HTMLElement = document.getElementById('reaction-table')!
+const resetButton: HTMLElement = document.getElementById('reset-scores-btn')!
 
 
 // ----- Controller -----
@@ -108,6 +109,15 @@ function getResultsString(): string {
 
 function updateLocalStorage() {
   window.localStorage.setItem('reactionTimes', JSON.stringify(game.allReactionTimes))
+}
+
+function resetLocalStorage() {
+  const result = window.localStorage.getItem('reactionTimes')
+
+  if (result !== null) {
+    window.localStorage.removeItem('reactionTimes')
+    location.reload()
+  }
 }
 
 
@@ -193,6 +203,7 @@ function startup() {
   if (game.allReactionTimes.length > 0)
     game.allReactionTimes.forEach(ele => renderTableRow(ele))
   clickElement.addEventListener('click', () => runReactionTime())
+  resetButton.addEventListener('click', () => resetLocalStorage())
 }
 
 startup()

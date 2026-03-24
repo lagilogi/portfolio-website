@@ -61,30 +61,36 @@
           <h1>Test your reaction time</h1>
           <p id="click-element-text">Click here to start</p>
         </div>
-      </section>
-      <section id="explanation">
-        <p>Click anywhere inside the <span id="blue">BLUE</span> banner above to start.<br>Click as fast as possible when the <span id="red">RED</span> background turns <span id="green">GREEN</span></p>
-        <br>
-        <p>Reaction times:</p>
-        <table id="reaction-table">
-          <thead>
-            <th scope="col">Round 1</th>
-            <th scope="col">Round 2</th>
-            <th scope="col">Average</th>
-          </thead>
-        </table>
+
+        <div id="game-information">
+          <div class="how-to-play">
+            <h3>How to play</h3>
+            <p>Click anywhere inside the <span id="blue">BLUE</span> banner above to start.</p>
+            <p>Click as fast as possible when the <span id="red">RED</span> background turns <span id="green">GREEN</span></p>
+          </div>
+          <div>
+            <h3>Reaction times</h3>
+            <table id="reaction-table">
+              <thead>
+                <th scope="col">Round 1</th>
+                <th scope="col">Round 2</th>
+                <th scope="col">Average</th>
+              </thead>
+            </table>
+          </div>
+        </div>
       </section>
 
       <section id="about">
         <h2>About the Reaction Time project</h2>
-        <p>The Reaction Time project was the first project to be added to my portfolio.</p>
+        <p>The Reaction Time project is the first project to be added to my portfolio. For this project I used HTML, CSS and TypeScript.</p>
         <h3>The goals</h3>
-        <p>The goal was to recreate the Reaction Time test by <a href="https://humanbenchmark.com/">Human Benchmark</a>. Since I don't have access to a database through github pages, I wanted to learn to work with local storage</p>
+        <p>The goal was to recreate the Reaction Time test by <a href="https://humanbenchmark.com/">Human Benchmark</a> with some of my own ideas. Since I don't have access to a database through Github Pages, this would be the perfect opportunity to learn about using localstorage.</p>
         <h3>Challenges & lessons</h3>
         <ul>
           <li><b>Lesson:</b> Use localstorage for persistent data for returning visitors</li>
           <li><b>Lesson:</b> Design a proper way of showing data</li>
-          <li><b>Challenge:</b> ...</li>
+          <li><b>Challenge:</b> I started writing out the code to get the basic logic working. I got it working fast but it, of course, turned into a bit of spaghetti code. So to clean up and learn about software architecture, I researched and refactored the code according to a the <abbr title="Model-View-Controller">MVC</abbr> model. But because the project is relatively small, making the code pure MVC would be overkill and lack code clarity. Finding the right balance of using the MVC model while also keeping the code easy-to-read was challenging.</li>
         </ul>
       </section>
     </main>

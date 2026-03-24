@@ -45,7 +45,7 @@
   - ~~Store results ~~
   - ~~Display results~~
   - Update last 10 scores
-  - Refactor to make more modular
+  - ~~Refactor to make more modular~~
 - Write unit tests
 
 #### Pathfinding page

@@ -16,6 +16,7 @@ body {
   border-radius: 10px;
   padding: min(30px, 4vw);
   background: var(--bg);
+  margin: 0 5px;
   /* box-shadow: 0 -2px 40px -5px var(--accent); */
 
   animation: aboutme-box-shadow 12s linear infinite;
@@ -155,12 +156,13 @@ body {
 .education-card {
   display: flex;
   gap: 16px;
-  width: clamp(320px, 100%, 800px);
+  max-width: 800px;
   justify-self: center;
   border: 1px var(--border) solid;
   border-radius: 5px;
   background: var(--bg);
   padding: min(25px, 4vw);
+  margin: 0 5px;
   box-shadow: 4px 4px 30px -20px var(--box-shadow);
 }
 .education-information {
@@ -238,13 +240,14 @@ body {
 }
 
 
-/* SECTION Projects */
+/* SECTION Projects & Playground */
 .projects-container {
   max-width: clamp(310px, 100%, 1100px);
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1rem;
   justify-self: center;
+  margin: 0 5px;
 }
 
 .project-card {

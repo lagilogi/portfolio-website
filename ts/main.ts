@@ -1,8 +1,7 @@
-
 // DARK / LIGHT MODE SWITCHER
 // variables
 let theme = localStorage.getItem('theme')
-const themeSwitch = document.getElementById('theme-switch')
+const themeSwitch = document.getElementById('theme-switch')!
 const preferLight = window.matchMedia("(prefers-color-scheme: light)").matches
 
 // Functions
@@ -10,13 +9,13 @@ const setDarkMode = () => {
   document.body.classList.remove('lightmode')
   localStorage.setItem('theme', 'dark')
   theme = 'dark'
-  themeSwitch.setAttribute('aria-pressed', false)
+  themeSwitch.setAttribute('aria-pressed', 'false')
 }
 const setLightMode = () => {
   document.body.classList.add('lightmode')
   localStorage.setItem('theme', 'light')
   theme = 'light'
-  themeSwitch.setAttribute('aria-pressed', true)
+  themeSwitch.setAttribute('aria-pressed', 'true')
 }
 
 if ((theme === null && preferLight === true) || theme === 'light')
@@ -31,13 +30,13 @@ themeSwitch.addEventListener('click', () => {
 
 // MOBILE SIDE MENU
 // Variables
-const hamburgerMenu = document.getElementById('open-navbar-button')
-const hamburgerMenuClose = document.getElementById('close-navbar-button')
-const navbar = document.getElementById('navbar')
-const navbarOverlay = document.getElementById('close-navbar-button')
-const media = window.matchMedia("(width < 601px)")
-const navLinks = document.querySelectorAll('nav a')
-let isMobile
+const hamburgerMenu: HTMLElement = document.getElementById('open-navbar-button')!
+const hamburgerMenuClose: HTMLElement = document.getElementById('close-navbar-button')!
+const navbar: HTMLElement = document.getElementById('navbar')!
+const navbarOverlay: HTMLElement = document.getElementById('close-navbar-button')!
+const media: MediaQueryList = window.matchMedia("(width < 601px)")
+const navLinks: NodeList = document.querySelectorAll('nav a')
+let isMobile: boolean
 
 
 // Event listeners
@@ -54,7 +53,7 @@ navLinks.forEach(link => {
 
 
 // Functions
-function updateNavbar(e) {
+function updateNavbar(e: MediaQueryList | MediaQueryListEvent) {
   isMobile = e.matches
 
   if (isMobile)

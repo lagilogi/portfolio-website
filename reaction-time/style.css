@@ -61,20 +61,29 @@ h1 {
   row-gap: 32px;
   background-color: var(--bg);
   border-radius: 5px;
+
+  h2 {
+    text-align: left;
+    margin-bottom: 16px;
+  }
 }
 .info-panel {
   max-width: 500px;
 }
-.how-to-play ol {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-left: 20px;
-  margin-bottom: 32px;
+.how-to-play {
+  ol {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-left: 20px;
+    margin-bottom: 32px;
+  }
+
+  p {
+    margin-bottom: 16px;
+  }
 }
-.how-to-play p {
-  margin-bottom: 16px;
-}
+
 .blue {
   color: var(--blue);
   font-weight: 700;
@@ -111,12 +120,17 @@ td, th {
   border-radius: 5px;
   max-width: clamp(310px, 100%, 1100px);
   justify-self: center;
-}
 
-#about ul {
-  margin-left: 20px;
-}
-
-#about p {
-  margin-bottom: 32px;
+  ul, ol {
+    margin-left: 20px;
+  }
+  ol {
+    margin-top: 16px;
+  }
+  li {
+    margin-bottom: 16px;
+  }
+  p {
+    margin-bottom: 32px;
+  }
 }

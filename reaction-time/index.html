@@ -64,7 +64,7 @@
       </section>
       <section class="game-information">
         <div class="info-panel reaction-times">
-          <h3>Reaction times</h3>
+          <h2>Reaction times</h2>
           <table id="reaction-table">
             <thead>
               <th colspan="4">Rounds</th>
@@ -79,13 +79,13 @@
           </table>
         </div>
         <div class="info-panel how-to-play">
-          <h3>How to play</h3>
+          <h2>How to play</h2>
           <ol>
             <li>Click anywhere inside the <span class="blue">BLUE</span> banner above to start.</li>
             <li>Click as fast as possible when the <span class="red">RED</span> banner turns <span class="green">GREEN</span></li>
             <li>Play 4 rounds to see your <b>average</b></li>
           </ol>
-          <p>Your scores are saved locally. You can reset the scores by clicking the button below. The page will be refreshed on deletion.</p>
+          <p>Your scores are saved locally. You can reset the scores by clicking the button below. The page will be refreshed on reset.</p>
           <button id="reset-scores-btn">Reset scores</button>
         </div>
       </section>
@@ -93,19 +93,26 @@
       <section id="about">
         <h2>About the Reaction Time project</h2>
         <p>The Reaction Time project is the first project to be added to my portfolio. For this project I used HTML, CSS and TypeScript.</p>
-        <h3>The goals</h3>
+        <h3>The goal</h3>
         <p>The goal was to recreate the Reaction Time test by <a href="https://humanbenchmark.com/">Human Benchmark</a> with some of my own ideas. Since I don't have access to a database through Github Pages, this would be the perfect opportunity to learn about using localstorage.</p>
-        <h3>Challenges & lessons</h3>
+        <h3>Lessons, Challenges & Hurdles</h3>
         <ul>
           <li><b>Lesson:</b> Use localstorage for persistent data for returning visitors</li>
           <li><b>Lesson:</b> Design a proper way of showing data</li>
           <li><b>Challenge:</b> I started writing out the code to get the basic logic working. I got it working fast but it, of course, turned into a bit of spaghetti code. So to clean up and learn about software architecture, I researched and refactored the code according to a the <abbr title="Model-View-Controller">MVC</abbr> model. But because the project is relatively small, making the code pure MVC would be overkill and lack code clarity. Finding the right balance of using the MVC model while also keeping the code easy-to-read was challenging.</li>
+          <li><b>Hurdle:</b> The reaction times initially were ~100ms slower than on other websites. There were 3 issues that needed to be solved:
+            <ol>
+              <li>I registered a <code><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event" target="_blank" rel="noopener noreferrer">click</a></code> event, which means that the click is only registered on releasing the mouse button. Changing the <code>addEventListener('click', ...)</code> into <code>addEventListener('<code><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerdown_event" target="_blank" rel="noopener noreferrer">pointerdown</a></code>', ...)</code> reduced the biggest gap. <code>Pointerdown</code> is different from <code><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/mousedown_event" target="_blank" rel="noopener noreferrer">mousedown</a></code>, which could also be an option, but this would not always work on mobile. <code>Pointerdown</code> works for both desktop and mobile.</li>
+              <li>I used <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/now" target="_blank" rel="noopener noreferrer">Date.now()</a></code> for setting the start time, when banner turned green, and the end time, when the user clicked. For interactive games where timing matters, you want to use <code><a href="https://developer.mozilla.org/en-US/docs/Web/API/Performance/now" target="_blank" rel="noopener noreferrer">performance.now()</a></code> as it is more precise due to representing time as float-point number, and is not affected by system adjustments due to being a <a href="https://w3c.github.io/hr-time/#dfn-monotonic-clock" target="_blank" rel="noopener noreferrer">monotonic clock</a></li>
+              <li>The last issue I had was that I set the start time before I rendered the banner green. This resulted in the 'timer' basically running before the user could even see the changes. Simply moving the render before setting the start time was only partly a fix, because of how browser event loops work. There is a gap between when running the code and when the pixels change color. So to make sure that the time starts as soon as the pixels change color, we use <code><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame" target="_blank" rel="noopener noreferrer">requestAnimationFrame</a></code>.<br><br>PS: This guy does a wonderful job of <a href="https://www.youtube.com/watch?v=cCOL7MC4Pl0" target="_blank" rel="noopener noreferrer">explaining how the web browser event loop</a> works!</li>
+            </ol>
+          </li>
         </ul>
       </section>
     </main>
 
     <footer>
-      <p>Copyright © <script>document.write(new Date().getFullYear())</script>.  All Rights Reserved.</p>
+      <p>Copyright © <script>document.write(new Date().getFullYear())</script>. All Rights Reserved.</p>
     </footer>
   </body>
 </html>

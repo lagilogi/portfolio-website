@@ -239,7 +239,7 @@ body {
 
 
 /* SECTION Projects */
-#projects-container {
+.projects-container {
   max-width: clamp(310px, 100%, 1100px);
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));

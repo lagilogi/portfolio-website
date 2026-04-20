@@ -9,15 +9,15 @@ enum State {
 
 const config = {
   maxRounds: 4,
-  minWaitTime: 800,
-  addWaitTime: 2000,
+  minWaitTime: 2000,
+  addWaitTime: 3000,
 }
 
 const game = {
   state: State.READY,
   round: 1,
 
-  currentTime: 0,
+  startTime: 0,
   timeoutId: -1,
 
   currReactionTime: 0,
@@ -46,12 +46,15 @@ function waitScreen() {
   }, waitTime)
 }
 function clickScreen() {
-  game.currentTime = Date.now()
   game.state = State.CLICK
   render()
+  requestAnimationFrame(() => {
+    game.startTime = performance.now()
+  })
 }
 function resultScreen() {
-  game.currReactionTime = Date.now() - game.currentTime
+  const endTime = performance.now()
+  game.currReactionTime = Math.round(endTime - game.startTime)
   game.state = State.RESULT
   game.currReactionTimes.push(game.currReactionTime)
   render()
@@ -89,7 +92,6 @@ function runReactionTime() {
       readyScreen()
     }
   }
-  console.log('gamestate:', game.state)
 }
 
 function getAverageTime(reactionTimes: number[]) {
@@ -202,7 +204,7 @@ function startup() {
   game.allReactionTimes = getLocalStorage()
   if (game.allReactionTimes.length > 0)
     game.allReactionTimes.forEach(ele => renderTableRow(ele))
-  clickElement.addEventListener('click', () => runReactionTime())
+  clickElement.addEventListener('pointerdown', () => runReactionTime())
   resetButton.addEventListener('click', () => resetLocalStorage())
 }
 

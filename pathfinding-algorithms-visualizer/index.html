@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Standard meta data -->
+    <title>Pathfinding Algorithms Visualizer</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="See how the different pathfinding algorithms work with this visualizer.">
+    <meta name="author" content="Wouter">
+
+    <!-- Linking to resources -->
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="../ts/main.ts" defer></script>
+    <script type="module" src="pathfinding.ts"></script>
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+
+    <!-- Sharing meta data -->
+    <meta property="og:title" content="Pathfinding Algorithms Visualizer">
+    <meta property="og:description" content="See how the different pathfinding algorithms work with this visualizer.">
+    <meta property="og:image" content="MODIFY IMAGE ./assets/....">
+    <meta property="og:url" content="MODIFY LINK https://lagilogi.github.io/portfolio-website/.......">
+    <meta name="twitter:title" content="Pathfinding Algorithms Visualizer">
+    <meta name="twitter:description" content="See how the different pathfinding algorithms work with this visualizer.">
+    <meta name="twitter:image" content="MODIFY IMAGE ./assets/....">
+    <meta name="twitter:card" content="summary-large-image">
+  </head>
+
+  <body>
+    <header>
+      <button id="open-navbar-button" onclick="openNavbar()" aria-label="Open sidebar" aria-expanded="false" aria-controls="navbar">
+        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px">
+          <path d="M165.13-254.62q-10.68 0-17.9-7.26-7.23-7.26-7.23-18t7.23-17.86q7.22-7.13 17.9-7.13h629.74q10.68 0 17.9 7.26 7.23 7.26 7.23 18t-7.23 17.87q-7.22 7.12-17.9 7.12H165.13Zm0-200.25q-10.68 0-17.9-7.27-7.23-7.26-7.23-17.99 0-10.74 7.23-17.87 7.22-7.13 17.9-7.13h629.74q10.68 0 17.9 7.27 7.23 7.26 7.23 17.99 0 10.74-7.23 17.87-7.22 7.13-17.9 7.13H165.13Zm0-200.26q-10.68 0-17.9-7.26-7.23-7.26-7.23-18t7.23-17.87q7.22-7.12 17.9-7.12h629.74q10.68 0 17.9 7.26 7.23 7.26 7.23 18t-7.23 17.86q-7.22 7.13-17.9 7.13H165.13Z"/>
+        </svg>
+      </button>
+
+      <!-- NAVIGATION -->
+      <nav id="navbar">
+        <ul>
+          <li>
+            <button id="close-navbar-button" onclick="closeNavbar()" aria-label="close sidebar" aria-expanded="true" aria-controls="navbar">
+              <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px">
+                <path d="m480-444.62-209.69 209.7q-7.23 7.23-17.5 7.42-10.27.19-17.89-7.42-7.61-7.62-7.61-17.7 0-10.07 7.61-17.69L444.62-480l-209.7-209.69q-7.23-7.23-7.42-17.5-.19-10.27 7.42-17.89 7.62-7.61 17.7-7.61 10.07 0 17.69 7.61L480-515.38l209.69-209.7q7.23-7.23 17.5-7.42 10.27-.19 17.89 7.42 7.61 7.62 7.61 17.7 0 10.07-7.61 17.69L515.38-480l209.7 209.69q7.23 7.23 7.42 17.5.19 10.27-7.42 17.89-7.62 7.61-17.7 7.61-10.07 0-17.69-7.61L480-444.62Z"/>
+              </svg>
+            </button>
+          </li>
+          <li><a href="/">Home</a></li>
+        </ul>
+        <button id="theme-switch" onclick="themeSwitcher()" aria-label="Toggle light mode" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12,22 C17.5228475,22 22,17.5228475 22,12 C22,6.4771525 17.5228475,2 12,2 C6.4771525,2 2,6.4771525 2,12 C2,17.5228475 6.4771525,22 12,22 Z M12,20.5 L12,3.5 C16.6944204,3.5 20.5,7.30557963 20.5,12 C20.5,16.6944204 16.6944204,20.5 12,20.5 Z"></path>
+          </svg>
+        </button>
+      </nav>
+      <div id="overlay" onclick="closeNavbar()" aria-hidden="true"></div>
+    </header>
+
+    <main>
+      <h1>Pathfinding Algorithms Visualizer</h1>
+      
+      <section id=""></section>
+
+      <section id="about">
+        <h2>About the Pathfinding project</h2>
+        <p>The pathfinding project stems from a technical assignment I had to do for a job interview.</p>
+        <h3>The goal</h3>
+        <p>The goal was to recreate the Reaction Time test by <a href="https://humanbenchmark.com/">Human Benchmark</a> with some of my own ideas. Since I don't have access to a database through Github Pages, this would be the perfect opportunity to learn about using localstorage.</p>
+        <h3>Lessons, Challenges & Hurdles</h3>
+        <ul>
+          <li><b>Lesson:</b> </li>
+          <li><b>Challenge:</b> </li>
+          <li><b>Hurdle:</b> </li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      <p>Copyright © <script>document.write(new Date().getFullYear())</script>.  All Rights Reserved.</p>
+    </footer>
+  </body>
+</html>

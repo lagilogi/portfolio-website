@@ -8,6 +8,7 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         reaction: resolve(__dirname, 'reaction-time/index.html'),
+        pathfinding: resolve(__dirname, 'pathfinding-algorithms-visualizer/index.html'),
       },
     },
   },

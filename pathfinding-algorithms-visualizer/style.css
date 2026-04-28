@@ -1,0 +1,25 @@
+
+
+/* SECTION game-information */
+#about {
+  margin-left: 5px;
+  margin-right: 5px;
+  padding: min(15px, 4vw);
+  background: var(--bg);
+  border-radius: 5px;
+  max-width: clamp(310px, 100%, 1100px);
+  justify-self: center;
+
+  ul, ol {
+    margin-left: 20px;
+  }
+  ol {
+    margin-top: 16px;
+  }
+  li {
+    margin-bottom: 16px;
+  }
+  p {
+    margin-bottom: 32px;
+  }
+}

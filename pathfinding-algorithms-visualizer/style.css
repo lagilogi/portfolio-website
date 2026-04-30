@@ -1,4 +1,10 @@
-
+main {
+  max-width: clamp(310px, 100%, 1100px);
+  justify-self: center;
+}
+h3 {
+  margin-bottom: 16px;
+}
 
 /* SECTION game-information */
 #about {

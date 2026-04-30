@@ -58,7 +58,36 @@
     <main>
       <h1>Pathfinding Algorithms Visualizer</h1>
 
-      <section id=""></section>
+      <section id="app">
+        <div id="appControls">
+          <div id="appButtons">
+            <button id="startButton">Start / Pause</button>
+            <button id="resetButton">Reset</button>
+          </div>
+          <select id="mazesDropdown">
+            <option>Tiny</option>
+            <option>Horizontal</option>
+            <option>Horizontal 2</option>
+            <option>Horizontal 3</option>
+            <option>Empty Square</option>
+            <option>Square</option>
+            <option>Big Square</option>
+            <option>Huge Empty Square</option>
+            <option>Huge Square</option>
+            <option>Impossible Exit</option>
+          </select>
+          <div id="speedSlider">
+            <label for="speed">Speed</label>
+            <input type="range" id="speed" name="speed" min="1" max="10" default="5">
+          </div>
+        </div>
+        <div id="gridArea">
+          <div id="grid">
+
+          </div>
+          
+        </div>
+      </section>
 
       <section id="about">
         <h2>About the Pathfinding project</h2>

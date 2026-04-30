@@ -6,6 +6,46 @@ h3 {
   margin-bottom: 16px;
 }
 
+#appControls {
+  display: flex;
+  gap: 32px;
+
+  #appButtons {
+    display: flex;
+    gap: 8px;
+  }
+  
+  #mazesDropdown {
+    font-weight: bold;
+    border-radius: 5px;
+  }
+
+  #speedSlider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    input[type="range"] {
+      appearance: none;
+      background: var(--accent-gradient);
+      accent-color: white;
+      height: 8px;
+      border-radius: 8px;
+    }
+  }
+}
+
+#gridArea {
+  max-width: 100%;
+  background: var(--bg);
+  height: 500px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 16px;
+}
+
 /* SECTION game-information */
 #about {
   margin-left: 5px;

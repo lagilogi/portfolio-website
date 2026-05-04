@@ -19,7 +19,7 @@ export class Renderer {
       const newRowDiv = document.createElement('div')
       newRowDiv.style.display = 'flex'
       for (let col = 0; col < cols; col++) {
-        const newCellDiv: HTMLElement = this.renderCell(grid[row][col])
+        const newCellDiv: HTMLElement = this.createCellDiv(grid[row][col])
         newRowDiv.appendChild(newCellDiv)
       }
 
@@ -28,19 +28,18 @@ export class Renderer {
   }
 
 	// This function renders a specific cell
-	renderCell(cell: Cell): HTMLElement {
-    const newCellDiv = document.createElement('div')
-    newCellDiv.style.width = `${this.sqrSize}px`
-    newCellDiv.style.height = `${this.sqrSize}px`
-    newCellDiv.style.border = `1px solid var(--border)`
-    newCellDiv.style.fontSize = '12px'
-    newCellDiv.style.color = 'var(--bg-dark)'
-    newCellDiv.style.fontSize = '12px'
-    newCellDiv.style.textAlign = 'center'
-    newCellDiv.style.verticalAlign = 'middle'
-    newCellDiv.style.lineHeight = `${this.sqrSize / 2}`
-
-    // text-align: center; vertical-align: middle;
+	createCellDiv(cell: Cell): HTMLElement {
+		const newCellDiv = document.createElement('div')
+		newCellDiv.style = `
+			width: ${this.sqrSize}px;
+			height: ${this.sqrSize}px;
+			border: 1px solid var(--border);
+			font-size: 12px;
+			color: var(--bg-dark);
+			text-align: center;
+			vertical-align: middle;
+			line-height: ${this.sqrSize / 2}`
+		newCellDiv.setAttribute('id', cell.id)
 
     switch (cell.type) {
       case CellType.FLOOR:
@@ -57,11 +56,24 @@ export class Renderer {
         newCellDiv.style.background = 'lightgreen'
         newCellDiv.innerText = 'E'
         break;
-
     }
-
     return newCellDiv
-  }
+	}
 
+	renderVisitedCell(cell: Cell) {
+		const cellDiv: HTMLElement = document.getElementById(cell.id)!
+		cellDiv.style.background = 'yellowgreen'
+	}
+	
+	renderPath(pathArray: Cell[]) {
+		let currCell: Cell
+		let cellDiv: HTMLElement
+
+		while (pathArray.length > 0) {
+			currCell = pathArray.pop()!
+			cellDiv = document.getElementById(currCell.id)!
+			cellDiv.style.background = 'var(--accent)'
+		}
+	}
 
 }

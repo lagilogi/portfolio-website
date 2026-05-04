@@ -1,6 +1,8 @@
 export default [
   {
     name: 'Tiny',
+    start: [1, 1],
+    end: [2, 2],
     maze: [
         [1, 1, 1, 1],
         [1, 2, 0, 1],
@@ -10,6 +12,8 @@ export default [
   },
   {
     name: 'Horizontal',
+    start: [1, 1],
+    end: [3, 7],
     maze: [
       [1, 1, 1, 1, 1, 1, 1, 1, 1],
       [1, 2, 0, 0, 0, 0, 0, 0, 1],
@@ -20,6 +24,8 @@ export default [
   },
   {
     name: 'Horizontal 2',
+    start: [1, 1],
+    end: [3, 7],
     maze: [
       [1, 1, 1, 1, 1, 1, 1, 1, 1],
       [1, 2, 1, 0, 1, 0, 1, 3, 1],
@@ -30,6 +36,8 @@ export default [
   },
   {
     name: 'Horizontal 3',
+    start: [1, 1],
+    end: [3, 7],
     maze: [
       [1, 1, 1, 1, 1, 1, 1, 1, 1],
       [1, 2, 1, 0, 0, 0, 1, 3, 1],
@@ -40,6 +48,8 @@ export default [
   },
   {
     name: 'Horizontal Flat',
+    start: [1, 1],
+    end: [3, 7],
     maze: [
       [1, 1, 1, 1, 1, 1, 1, 1, 1],
       [1, 2, 0, 0, 0, 0, 0, 3, 1],
@@ -48,6 +58,8 @@ export default [
   },
   {
     name: 'Empty Square',
+    start: [1, 1],
+    end: [3, 7],
     maze: [
       [1, 1, 1, 1, 1, 1, 1],
       [1, 2, 0, 0, 0, 0, 1],
@@ -62,6 +74,8 @@ export default [
   },
   {
     name: 'Square',
+    start: [1, 1],
+    end: [3, 7],
     maze: [
       [1, 1, 1, 1, 1, 1, 1],
       [1, 2, 0, 1, 0, 0, 1],
@@ -76,6 +90,8 @@ export default [
   },
   {
     name: 'Big Square',
+    start: [1, 1],
+    end: [3, 7],
     maze: [
       [1, 1, 1, 1, 1, 1, 1, 1, 1],
       [1, 2, 0, 1, 0, 0, 1, 0, 1],
@@ -90,6 +106,8 @@ export default [
   },
   {
     name: 'Huge Empty Square',
+    start: [1, 1],
+    end: [3, 7],
     maze: [
       [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -112,6 +130,8 @@ export default [
   },
   {
     name: 'Huge Square',
+    start: [1, 1],
+    end: [3, 7],
     maze: [
       [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -134,6 +154,8 @@ export default [
   },
   {
     name: 'Impossible Exit',
+    start: [1, 1],
+    end: [3, 7],
     maze: [
       [1, 1, 1, 1, 1, 1, 1],
       [1, 2, 0, 0, 0, 0, 1],

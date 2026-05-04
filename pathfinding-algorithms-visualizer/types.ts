@@ -17,5 +17,5 @@ export interface Cell {
   type: CellType,
   visited: boolean,
   parent: Cell | null,
-  weight: number,
+  weight: number | null,
 }

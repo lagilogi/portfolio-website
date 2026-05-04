@@ -64,18 +64,28 @@
             <button id="startButton">Start / Pause</button>
             <button id="resetButton">Reset</button>
           </div>
-          <select id="mazesDropdown">
-            <option>Tiny</option>
-            <option>Horizontal</option>
-            <option>Horizontal 2</option>
-            <option>Horizontal 3</option>
-            <option>Empty Square</option>
-            <option>Square</option>
-            <option>Big Square</option>
-            <option>Huge Empty Square</option>
-            <option>Huge Square</option>
-            <option>Impossible Exit</option>
-          </select>
+          <div id="mazeSelect" class="select">
+            Maze:
+            <select id="mazeSelectDropdown" class="dropdown">
+              <option>Tiny</option>
+              <option>Horizontal</option>
+              <option>Horizontal 2</option>
+              <option>Horizontal 3</option>
+              <option>Horizontal Flat</option>
+              <option>Empty Square</option>
+              <option>Square</option>
+              <option>Big Square</option>
+              <option>Huge Empty Square</option>
+              <option>Huge Square</option>
+              <option>Impossible Exit</option>
+            </select>
+          </div>
+          <div id="algorithmSelect" class="select">
+            Algorithm:
+            <select id="algorithmSelectDropdown" class="dropdown">
+              <option>BFS</option>
+            </select>
+          </div>
           <div id="speedSlider">
             <label for="speed">Speed</label>
             <input type="range" id="speed" name="speed" min="1" max="10" default="5">
@@ -85,7 +95,7 @@
           <div id="grid">
 
           </div>
-          
+
         </div>
       </section>
 

@@ -8,16 +8,26 @@ h3 {
 
 #appControls {
   display: flex;
-  gap: 32px;
+  column-gap: 32px;
+  row-gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0 5px;
 
   #appButtons {
     display: flex;
     gap: 8px;
   }
-  
-  #mazesDropdown {
+
+  .select {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .dropdown {
     font-weight: bold;
     border-radius: 5px;
+    padding: 4px;
   }
 
   #speedSlider {
@@ -38,12 +48,13 @@ h3 {
 #gridArea {
   max-width: 100%;
   background: var(--bg);
-  height: 500px;
+  height: 550px;
   border-radius: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 16px;
+  margin: 16px 5px;
+  overflow: hidden;
 }
 
 /* SECTION game-information */

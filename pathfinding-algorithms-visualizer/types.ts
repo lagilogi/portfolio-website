@@ -12,19 +12,25 @@ export enum CellType {
   START,
   END
 }
+export enum CellState {
+  OPEN,
+  QUEUED,
+  VISITED,
+  NONE
+}
 
 export interface Cell {
   id: string
   row: number,
   col: number,
   type: CellType,
-  visited: boolean,
+  state: CellState,
   parent: Cell | null,
   weight: number | null,
 }
 
 export interface PathfindingAlgorithm {
-  start: Cell,
+  grid: Cell[][]
   step(): Cell | null,
   getCell(cellCoords: number[]): Cell,
   reset(grid: Cell[][], currMaze: Maze): void,

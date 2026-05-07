@@ -6,6 +6,7 @@ import { DFS } from './Dfs';
 
 export class Game {
   startButton: HTMLElement;
+  nextStepButton: HTMLElement
   resetButton: HTMLElement;
   mazeSelect: HTMLElement;
   algorithmSelect: HTMLElement;
@@ -21,9 +22,11 @@ export class Game {
   stepTime: number;
   timePassed: number;
   lastTimestamp: number;
+  nextStep: boolean;
 
   constructor() {
     this.startButton = document.getElementById('startButton')!
+    this.nextStepButton = document.getElementById('nextStepButton')!
     this.resetButton = document.getElementById('resetButton')!
     this.mazeSelect = document.getElementById('mazeSelect')!
     this.algorithmSelect = document.getElementById('algorithmSelect')!
@@ -34,6 +37,7 @@ export class Game {
     this.stepTime = 100;
     this.timePassed = this.stepTime + 1;
     this.lastTimestamp = 0;
+    this.nextStep = false;
 
     this.currMaze = mazes[0]
     this.grid = this.createGrid(this.currMaze.maze)
@@ -45,6 +49,7 @@ export class Game {
 
   bindEvents() {
     this.startButton.addEventListener("click", this.handleStartButton);
+    this.nextStepButton.addEventListener("click", this.handleNextStepButton);
     this.resetButton.addEventListener("click", this.handleResetButton);
     this.mazeSelect.addEventListener("change", this.handleMazeChange);
     this.algorithmSelect.addEventListener("change", this.handleAlgorithmChange);
@@ -56,18 +61,36 @@ export class Game {
   // Starts or pauses the visualizer loop
   handleStartButton = () => {
     if (this.state === GameState.FINISHED) {
-      this.state = GameState.RESETTING
-      this.reset()
+      this.state = GameState.RESETTING;
+      this.reset();
     }
     if (this.state === GameState.READY) {
-      this.state = GameState.RUNNING
-      this.lastTimestamp = performance.now()
-      requestAnimationFrame(this.loop)
+      this.state = GameState.RUNNING;
+      this.lastTimestamp = performance.now();
+      requestAnimationFrame(this.loop);
     }
     else if (this.state === GameState.PAUSED)
-      this.state = GameState.RUNNING
+      this.state = GameState.RUNNING;
     else if (this.state === GameState.RUNNING)
-      this.state = GameState.PAUSED
+      this.state = GameState.PAUSED;
+  }
+
+  // Moves only the next step. If the visualizer was already running, it pauses it.
+  handleNextStepButton = () => {
+    if (this.state === GameState.FINISHED)
+      return;
+
+    this.state = GameState.PAUSED;
+    const result: StepResult | null = this.algorithm.step();
+  
+    if (result !== null) {
+      this.renderer.renderStep(result);
+      if (result.currCell.type === CellType.END) {
+        this.getPath(result.currCell);
+        this.renderer.renderPath(this.path);
+        this.state = GameState.FINISHED;
+      }
+    }
   }
 
   // Resets the game when the reset button is clicked
@@ -118,8 +141,6 @@ export class Game {
   handleSpeedSliderChange = (event: Event) => {
     const slider = event.target as HTMLInputElement
 
-    console.log(slider.value)
-
     switch (slider.value) {
       case '1':
         this.stepTime = 500;
@@ -146,7 +167,6 @@ export class Game {
     this.algorithm.reset(this.grid, this.currMaze);
     this.renderer.renderGrid(this.grid);
     this.state = GameState.READY;
-    console.log('reset inside Game', this.grid)
   }
 
 
@@ -205,7 +225,6 @@ export class Game {
   // Retrieves the path, backwards, from end to finish, by getting the parent of the cells. The parents of cells are determined by the algorithm
   getPath(endCell: Cell) {
     let currCell: Cell = endCell
-    console.log('in getPath', currCell)
 
     while (1) {
       this.path.push(currCell)
@@ -230,7 +249,6 @@ export class Game {
             this.getPath(result.currCell);
             this.renderer.renderPath(this.path);
             this.state = GameState.FINISHED;
-            console.log('FINISHED')
           }
         }
         else {

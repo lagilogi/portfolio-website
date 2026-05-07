@@ -74,12 +74,17 @@ export class Renderer {
 	renderStep(stepResult: StepResult) {
 		let cellDiv: HTMLElement = document.getElementById(stepResult.currCell.id)!
 		cellDiv.style.background = 'yellowgreen';
-		// cellDiv.style.border = '1px solid var(--border)';
+		cellDiv.style.border = '1px solid var(--border)';
 
 		stepResult.queuedCells.forEach((cell) => {
 			cellDiv = document.getElementById(cell.id)!;
 			cellDiv.style.border = '4px inset var(--border)';
 		})
+
+		if (stepResult.nextCell !== null) {
+			cellDiv = document.getElementById(stepResult.nextCell.id)!
+			cellDiv.style.border = '4px inset var(--accent)';
+		}
 	}
 	
 	renderPath(pathArray: Cell[]) {

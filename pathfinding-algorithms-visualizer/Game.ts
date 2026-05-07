@@ -218,8 +218,8 @@ export class Game {
   loop = (timestamp: number) => {
     const deltaTime: number = timestamp - this.lastTimestamp;
     this.lastTimestamp = timestamp;
-    this.timePassed += deltaTime;
     if (this.state === GameState.RUNNING) {
+      this.timePassed += deltaTime;
       if (this.timePassed > this.stepTime) {
         this.timePassed -= this.stepTime;
         const result: StepResult | null = this.algorithm.step();

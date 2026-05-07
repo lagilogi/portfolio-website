@@ -27,6 +27,7 @@ export class DFS implements PathfindingAlgorithm {
 			this.grid[row + 1][col].state = CellState.QUEUED;
 			this.grid[row + 1][col].parent = currCell;
 			this.stack.push(this.grid[row + 1][col]);
+			newlyQueued.push(this.grid[row + 1][col]);
 		}
 		if (this.grid[row][col + 1].type !== CellType.WALL && this.grid[row][col + 1].state === CellState.OPEN) {
 			this.grid[row][col + 1].state = CellState.QUEUED;
@@ -62,8 +63,14 @@ export class DFS implements PathfindingAlgorithm {
 		// Add valid surrounding cells to stack
 		const queuedCells: Cell[] = this.addSurroundingCellsToStack(currCell)
 
+		// Get cell that is used next step, if queue is not empty
+		let nextCell: Cell | null = null
+		if (this.stack.length > 0 && currCell.type !== CellType.END)
+			nextCell = this.stack[this.stack.length - 1];
+
 		return {
 			currCell,
+			nextCell,
 			queuedCells,
 		}
 	}

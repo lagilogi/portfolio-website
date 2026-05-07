@@ -31,7 +31,8 @@ export interface Cell {
 
 export interface StepResult {
   currCell: Cell,
-  queuedCells: Cell[]
+  nextCell: Cell | null
+  queuedCells: Cell[],
 }
 
 export interface PathfindingAlgorithm {

@@ -60,13 +60,17 @@ export class BFS implements PathfindingAlgorithm {
 		// Mark current cell as VISITED
 		currCell.state = CellState.VISITED
 
-		// Add valid surrounding cells to queue 
+		// Add valid surrounding floor cells to queue and add to array for renderer to render them with a different border
 		const queuedCells: Cell[] = this.addSurroundingCellsToQueue(currCell)
 
-
+		// Get cell that is used next step, if queue is not empty
+		let nextCell: Cell | null = null
+		if (this.queue.length > 0 && currCell.type !== CellType.END)
+			nextCell = this.queue[0];
 
 		return {
 			currCell,
+			nextCell,
 			queuedCells,
 		}
 	}

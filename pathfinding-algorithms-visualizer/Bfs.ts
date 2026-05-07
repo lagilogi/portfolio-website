@@ -3,11 +3,13 @@ import { Cell, CellState, CellType, StepResult, Maze, PathfindingAlgorithm } fro
 export class BFS implements PathfindingAlgorithm {
 	grid: Cell[][];
 	queue: Cell[];
+	diagonal: boolean;
 
-	constructor(grid: Cell[][], maze: Maze) {
+	constructor(grid: Cell[][], maze: Maze, diagonal: boolean) {
 		this.grid = grid
 		this.queue = []
 		this.queue.push(this.getCell(maze.start))
+		this.diagonal = diagonal
 
 		console.log('Selected BFS')
 	}
@@ -29,11 +31,23 @@ export class BFS implements PathfindingAlgorithm {
 			this.queue.push(this.grid[row + 1][col]);
 			newlyQueued.push(this.grid[row + 1][col]);
 		}
+		if (this.diagonal === true && this.grid[row + 1][col + 1].type !== CellType.WALL && this.grid[row + 1][col + 1].state === CellState.OPEN) {
+			this.grid[row + 1][col + 1].state = CellState.QUEUED;
+			this.grid[row + 1][col + 1].parent = currCell;
+			this.queue.push(this.grid[row + 1][col + 1]);
+			newlyQueued.push(this.grid[row + 1][col + 1]);
+		}
 		if (this.grid[row][col + 1].type !== CellType.WALL && this.grid[row][col + 1].state === CellState.OPEN) {
 			this.grid[row][col + 1].state = CellState.QUEUED;
 			this.grid[row][col + 1].parent = currCell;
 			this.queue.push(this.grid[row][col + 1]);
 			newlyQueued.push(this.grid[row][col + 1]);
+		}
+		if (this.diagonal === true && this.grid[row - 1][col + 1].type !== CellType.WALL && this.grid[row - 1][col + 1].state === CellState.OPEN) {
+			this.grid[row - 1][col + 1].state = CellState.QUEUED;
+			this.grid[row - 1][col + 1].parent = currCell;
+			this.queue.push(this.grid[row - 1][col + 1]);
+			newlyQueued.push(this.grid[row - 1][col + 1]);
 		}
 		if (this.grid[row - 1][col].type !== CellType.WALL && this.grid[row - 1][col].state === CellState.OPEN) {
 			this.grid[row - 1][col].state = CellState.QUEUED;
@@ -41,12 +55,24 @@ export class BFS implements PathfindingAlgorithm {
 			this.queue.push(this.grid[row - 1][col]);
 			newlyQueued.push(this.grid[row - 1][col]);
 		}
+		if (this.diagonal === true && this.grid[row - 1][col - 1].type !== CellType.WALL && this.grid[row - 1][col - 1].state === CellState.OPEN) {
+			this.grid[row - 1][col - 1].state = CellState.QUEUED;
+			this.grid[row - 1][col - 1].parent = currCell;
+			this.queue.push(this.grid[row - 1][col - 1]);
+			newlyQueued.push(this.grid[row - 1][col - 1]);
+		}
 		if (this.grid[row][col - 1].type !== CellType.WALL && this.grid[row][col - 1].state === CellState.OPEN) {
 			this.grid[row][col - 1].state = CellState.QUEUED;
 			this.grid[row][col - 1].parent = currCell;
 			this.queue.push(this.grid[row][col - 1]);
 			newlyQueued.push(this.grid[row][col - 1]);
 		}
+		if (this.diagonal === true && this.grid[row + 1][col - 1].type !== CellType.WALL && this.grid[row + 1][col - 1].state === CellState.OPEN) {
+			this.grid[row + 1][col - 1].state = CellState.QUEUED;
+			this.grid[row + 1][col - 1].parent = currCell;
+			this.queue.push(this.grid[row + 1][col - 1]);
+			newlyQueued.push(this.grid[row + 1][col - 1]);
+		}		
 		return newlyQueued;
 	}
 
@@ -75,10 +101,11 @@ export class BFS implements PathfindingAlgorithm {
 		}
 	}
 
-	reset(grid: Cell[][], maze: Maze) {
+	reset(grid: Cell[][], maze: Maze, diagonal: boolean) {
 		this.grid = grid
 		this.queue = []
 		this.queue.push(this.getCell(maze.start))
+		this.diagonal = diagonal
 	}
 }
 

@@ -39,7 +39,7 @@ export interface PathfindingAlgorithm {
   grid: Cell[][]
   step(): StepResult | null,
   getCell(cellCoords: number[]): Cell,
-  reset(grid: Cell[][], currMaze: Maze): void,
+  reset(grid: Cell[][], currMaze: Maze, diagonal: boolean): void,
 }
 
 export interface Maze {

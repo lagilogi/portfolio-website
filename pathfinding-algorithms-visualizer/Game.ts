@@ -10,6 +10,7 @@ export class Game {
   resetButton: HTMLElement;
   mazeSelect: HTMLElement;
   algorithmSelect: HTMLElement;
+  diagonalCheckbox: HTMLElement;
   speedSlider: HTMLElement;
 
   currMaze: Maze;
@@ -23,6 +24,7 @@ export class Game {
   timePassed: number;
   lastTimestamp: number;
   nextStep: boolean;
+  diagonal: boolean;
 
   constructor() {
     this.startButton = document.getElementById('startButton')!
@@ -30,6 +32,7 @@ export class Game {
     this.resetButton = document.getElementById('resetButton')!
     this.mazeSelect = document.getElementById('mazeSelect')!
     this.algorithmSelect = document.getElementById('algorithmSelect')!
+    this.diagonalCheckbox = document.getElementById('diagonalCheckbox')!
     this.speedSlider = document.getElementById('speedSlider')!
 
     this.renderer = new Renderer();
@@ -38,11 +41,12 @@ export class Game {
     this.timePassed = this.stepTime + 1;
     this.lastTimestamp = 0;
     this.nextStep = false;
+    this.diagonal = false;
 
     this.currMaze = mazes[0]
     this.grid = this.createGrid(this.currMaze.maze)
     this.path = []
-    this.algorithm = new BFS(this.grid, this.currMaze);
+    this.algorithm = new BFS(this.grid, this.currMaze, this.diagonal);
 
     this.bindEvents()
   }
@@ -53,6 +57,7 @@ export class Game {
     this.resetButton.addEventListener("click", this.handleResetButton);
     this.mazeSelect.addEventListener("change", this.handleMazeChange);
     this.algorithmSelect.addEventListener("change", this.handleAlgorithmChange);
+    this.diagonalCheckbox.addEventListener("change", this.handleDiagonalCheckbox)
     this.speedSlider.addEventListener("change", this.handleSpeedSliderChange);
   }
 
@@ -124,18 +129,24 @@ export class Game {
 
     switch (algorithmName) {
       case 'BFS':
-        this.algorithm = new BFS(this.grid, this.currMaze)
+        this.algorithm = new BFS(this.grid, this.currMaze, this.diagonal)
         break;
       case 'DFS':
         this.algorithm = new DFS(this.grid, this.currMaze)
         break;
     
       default:
-        this.algorithm = new BFS(this.grid, this.currMaze)
+        this.algorithm = new BFS(this.grid, this.currMaze, this.diagonal)
         break;
     }
 
     this.reset()
+  }
+
+  handleDiagonalCheckbox = (event: Event) => {
+    this.diagonal = !this.diagonal;
+    this.reset();
+    console.log('Diagonal:', this.diagonal)
   }
 
   handleSpeedSliderChange = (event: Event) => {
@@ -164,7 +175,7 @@ export class Game {
     this.grid = this.createGrid(this.currMaze.maze);
     this.timePassed = this.stepTime + 1;
     this.path = [];
-    this.algorithm.reset(this.grid, this.currMaze);
+    this.algorithm.reset(this.grid, this.currMaze, this.diagonal);
     this.renderer.renderGrid(this.grid);
     this.state = GameState.READY;
   }

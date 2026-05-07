@@ -3,7 +3,7 @@
 #### Priority ####
 - Add A* algo
 - Add Dijkstra algo
-- Add diagonal
+- ~~Add diagonal~~
 
 
 #### Less priority ####

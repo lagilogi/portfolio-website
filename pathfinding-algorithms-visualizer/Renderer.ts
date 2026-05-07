@@ -1,4 +1,4 @@
-import { Cell, CellType } from "./types";
+import { Cell, CellType, StepResult } from "./types";
 
 export class Renderer {
 	gridDiv: HTMLElement;
@@ -6,7 +6,14 @@ export class Renderer {
 
 	constructor() {
 		this.gridDiv = document.getElementById('grid')!;
-    this.sqrSize = 30;
+		if (window.innerWidth > 540)
+			this.sqrSize = 30;
+		else if (window.innerWidth > 450)
+			this.sqrSize = 25;
+		else if (window.innerWidth > 375)
+			this.sqrSize = 20;
+		else
+			this.sqrSize = 17;
 	}
 
 	// This function only renders the full starting grid. It's being called on page load and new map selection
@@ -64,9 +71,15 @@ export class Renderer {
     return newCellDiv
 	}
 
-	renderVisitedCell(cell: Cell) {
-		const cellDiv: HTMLElement = document.getElementById(cell.id)!
-		cellDiv.style.background = 'yellowgreen'
+	renderStep(stepResult: StepResult) {
+		let cellDiv: HTMLElement = document.getElementById(stepResult.currCell.id)!
+		cellDiv.style.background = 'yellowgreen';
+		// cellDiv.style.border = '1px solid var(--border)';
+
+		stepResult.queuedCells.forEach((cell) => {
+			cellDiv = document.getElementById(cell.id)!;
+			cellDiv.style.border = '4px inset var(--border)';
+		})
 	}
 	
 	renderPath(pathArray: Cell[]) {

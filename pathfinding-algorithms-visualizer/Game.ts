@@ -1,4 +1,4 @@
-import { Cell, CellType, CellState, GameState, PathfindingAlgorithm, Maze } from './types'
+import { Cell, CellType, CellState, StepResult, GameState, PathfindingAlgorithm, Maze } from './types'
 import mazes from './mazes'
 import { Renderer } from './Renderer';
 import { BFS } from './Bfs';
@@ -222,12 +222,12 @@ export class Game {
     if (this.state === GameState.RUNNING) {
       if (this.timePassed > this.stepTime) {
         this.timePassed -= this.stepTime;
-        const result: Cell | null = this.algorithm.step();
+        const result: StepResult | null = this.algorithm.step();
   
         if (result !== null) {
-          this.renderer.renderVisitedCell(result);
-          if (result.type === CellType.END) {
-            this.getPath(result);
+          this.renderer.renderStep(result);
+          if (result.currCell.type === CellType.END) {
+            this.getPath(result.currCell);
             this.renderer.renderPath(this.path);
             this.state = GameState.FINISHED;
             console.log('FINISHED')

@@ -1,4 +1,4 @@
-import { Cell, CellState, CellType, Maze, PathfindingAlgorithm } from "./types";
+import { Cell, CellState, CellType, StepResult, Maze, PathfindingAlgorithm } from "./types";
 
 export class BFS implements PathfindingAlgorithm {
 	grid: Cell[][];
@@ -18,33 +18,39 @@ export class BFS implements PathfindingAlgorithm {
 		return this.grid[row][col]
 	}
 
-	addSurroundingCellsToQueue(currCell: Cell) {
+	addSurroundingCellsToQueue(currCell: Cell): Cell[] {
 		const row: number = currCell.row;
 		const col: number = currCell.col;
+		const newlyQueued: Cell[] = [];
 
 		if (this.grid[row + 1][col].type !== CellType.WALL && this.grid[row + 1][col].state === CellState.OPEN) {
 			this.grid[row + 1][col].state = CellState.QUEUED;
 			this.grid[row + 1][col].parent = currCell;
 			this.queue.push(this.grid[row + 1][col]);
+			newlyQueued.push(this.grid[row + 1][col]);
 		}
 		if (this.grid[row][col + 1].type !== CellType.WALL && this.grid[row][col + 1].state === CellState.OPEN) {
 			this.grid[row][col + 1].state = CellState.QUEUED;
 			this.grid[row][col + 1].parent = currCell;
-			this.queue.push(this.grid[row][col + 1])
+			this.queue.push(this.grid[row][col + 1]);
+			newlyQueued.push(this.grid[row][col + 1]);
 		}
 		if (this.grid[row - 1][col].type !== CellType.WALL && this.grid[row - 1][col].state === CellState.OPEN) {
 			this.grid[row - 1][col].state = CellState.QUEUED;
 			this.grid[row - 1][col].parent = currCell;
-			this.queue.push(this.grid[row - 1][col])
+			this.queue.push(this.grid[row - 1][col]);
+			newlyQueued.push(this.grid[row - 1][col]);
 		}
 		if (this.grid[row][col - 1].type !== CellType.WALL && this.grid[row][col - 1].state === CellState.OPEN) {
 			this.grid[row][col - 1].state = CellState.QUEUED;
 			this.grid[row][col - 1].parent = currCell;
-			this.queue.push(this.grid[row][col - 1])
+			this.queue.push(this.grid[row][col - 1]);
+			newlyQueued.push(this.grid[row][col - 1]);
 		}
+		return newlyQueued;
 	}
 
-	step(): Cell | null {
+	step(): StepResult | null {
 		if (this.queue.length === 0)
 			return null
 
@@ -55,9 +61,14 @@ export class BFS implements PathfindingAlgorithm {
 		currCell.state = CellState.VISITED
 
 		// Add valid surrounding cells to queue 
-		this.addSurroundingCellsToQueue(currCell)
+		const queuedCells: Cell[] = this.addSurroundingCellsToQueue(currCell)
 
-		return currCell
+
+
+		return {
+			currCell,
+			queuedCells,
+		}
 	}
 
 	reset(grid: Cell[][], maze: Maze) {

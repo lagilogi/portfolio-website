@@ -29,9 +29,14 @@ export interface Cell {
   weight: number | null,
 }
 
+export interface StepResult {
+  currCell: Cell,
+  queuedCells: Cell[]
+}
+
 export interface PathfindingAlgorithm {
   grid: Cell[][]
-  step(): Cell | null,
+  step(): StepResult | null,
   getCell(cellCoords: number[]): Cell,
   reset(grid: Cell[][], currMaze: Maze): void,
 }

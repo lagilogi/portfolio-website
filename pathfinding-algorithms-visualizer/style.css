@@ -56,6 +56,21 @@ h3 {
   margin: 16px 5px;
   overflow: hidden;
 }
+@media screen and (max-width: 540px) {
+  #gridArea {
+    height: 460px;
+  }
+}
+@media screen and (max-width: 450px) {
+  #gridArea {
+    height: 360px;
+  }
+}
+@media screen and (max-width: 375px) {
+  #gridArea {
+    height: 310px;
+  }
+}
 
 /* SECTION game-information */
 #about {

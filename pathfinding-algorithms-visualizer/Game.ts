@@ -87,7 +87,7 @@ export class Game {
 
     this.state = GameState.PAUSED;
     const result: StepResult | null = this.algorithm.step();
-  
+
     if (result !== null) {
       this.renderer.renderStep(result);
       if (result.currCell.type === CellType.END) {
@@ -132,9 +132,9 @@ export class Game {
         this.algorithm = new BFS(this.grid, this.currMaze, this.diagonal)
         break;
       case 'DFS':
-        this.algorithm = new DFS(this.grid, this.currMaze)
+        this.algorithm = new DFS(this.grid, this.currMaze, this.diagonal)
         break;
-    
+
       default:
         this.algorithm = new BFS(this.grid, this.currMaze, this.diagonal)
         break;
@@ -253,7 +253,7 @@ export class Game {
       if (this.timePassed > this.stepTime) {
         this.timePassed -= this.stepTime;
         const result: StepResult | null = this.algorithm.step();
-  
+
         if (result !== null) {
           this.renderer.renderStep(result);
           if (result.currCell.type === CellType.END) {

@@ -74,8 +74,13 @@ export class Game {
       this.lastTimestamp = performance.now();
       requestAnimationFrame(this.loop);
     }
-    else if (this.state === GameState.PAUSED)
+    else if (this.state === GameState.PAUSED) {
       this.state = GameState.RUNNING;
+      if (this.nextStep === true) {
+        this.nextStep = false
+        requestAnimationFrame(this.loop);
+      }
+    }
     else if (this.state === GameState.RUNNING)
       this.state = GameState.PAUSED;
   }
@@ -86,6 +91,7 @@ export class Game {
       return;
 
     this.state = GameState.PAUSED;
+    this.nextStep = true;
     const result: StepResult | null = this.algorithm.step();
 
     if (result !== null) {

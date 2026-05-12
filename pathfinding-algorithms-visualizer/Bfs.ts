@@ -20,59 +20,40 @@ export class BFS implements PathfindingAlgorithm {
 		return this.grid[row][col]
 	}
 
-	addSurroundingCellsToQueue(currCell: Cell): Cell[] {
-		const row: number = currCell.row;
-		const col: number = currCell.col;
+	addNeighboursToQueue(currCell: Cell): Cell[] {
 		const newlyQueued: Cell[] = [];
 
-		if (this.grid[row + 1][col].type !== CellType.WALL && this.grid[row + 1][col].state === CellState.OPEN) {
-			this.grid[row + 1][col].state = CellState.QUEUED;
-			this.grid[row + 1][col].parent = currCell;
-			this.queue.push(this.grid[row + 1][col]);
-			newlyQueued.push(this.grid[row + 1][col]);
+		const directions = this.diagonal
+			? [
+				[1, -1],
+				[0, -1],
+				[-1, -1],
+				[-1, 0],
+				[-1, 1],
+				[0, 1],
+				[1, 1],
+				[1, 0]
+			]
+			: [
+				[0, -1],
+				[-1, 0],
+				[0, 1],
+				[1, 0]
+			]
+		
+		for (const [rowOffset, colOffset] of directions) {
+			const row = currCell.row + rowOffset;
+			const col = currCell.col + colOffset;
+			const neighbour = this.grid[row][col];
+
+			if (neighbour.type !== CellType.WALL && neighbour.state === CellState.OPEN) {
+				neighbour.state = CellState.QUEUED;
+				neighbour.parent = currCell;
+
+				this.queue.push(neighbour);
+				newlyQueued.push(neighbour);
+			}
 		}
-		if (this.diagonal === true && this.grid[row + 1][col + 1].type !== CellType.WALL && this.grid[row + 1][col + 1].state === CellState.OPEN) {
-			this.grid[row + 1][col + 1].state = CellState.QUEUED;
-			this.grid[row + 1][col + 1].parent = currCell;
-			this.queue.push(this.grid[row + 1][col + 1]);
-			newlyQueued.push(this.grid[row + 1][col + 1]);
-		}
-		if (this.grid[row][col + 1].type !== CellType.WALL && this.grid[row][col + 1].state === CellState.OPEN) {
-			this.grid[row][col + 1].state = CellState.QUEUED;
-			this.grid[row][col + 1].parent = currCell;
-			this.queue.push(this.grid[row][col + 1]);
-			newlyQueued.push(this.grid[row][col + 1]);
-		}
-		if (this.diagonal === true && this.grid[row - 1][col + 1].type !== CellType.WALL && this.grid[row - 1][col + 1].state === CellState.OPEN) {
-			this.grid[row - 1][col + 1].state = CellState.QUEUED;
-			this.grid[row - 1][col + 1].parent = currCell;
-			this.queue.push(this.grid[row - 1][col + 1]);
-			newlyQueued.push(this.grid[row - 1][col + 1]);
-		}
-		if (this.grid[row - 1][col].type !== CellType.WALL && this.grid[row - 1][col].state === CellState.OPEN) {
-			this.grid[row - 1][col].state = CellState.QUEUED;
-			this.grid[row - 1][col].parent = currCell;
-			this.queue.push(this.grid[row - 1][col]);
-			newlyQueued.push(this.grid[row - 1][col]);
-		}
-		if (this.diagonal === true && this.grid[row - 1][col - 1].type !== CellType.WALL && this.grid[row - 1][col - 1].state === CellState.OPEN) {
-			this.grid[row - 1][col - 1].state = CellState.QUEUED;
-			this.grid[row - 1][col - 1].parent = currCell;
-			this.queue.push(this.grid[row - 1][col - 1]);
-			newlyQueued.push(this.grid[row - 1][col - 1]);
-		}
-		if (this.grid[row][col - 1].type !== CellType.WALL && this.grid[row][col - 1].state === CellState.OPEN) {
-			this.grid[row][col - 1].state = CellState.QUEUED;
-			this.grid[row][col - 1].parent = currCell;
-			this.queue.push(this.grid[row][col - 1]);
-			newlyQueued.push(this.grid[row][col - 1]);
-		}
-		if (this.diagonal === true && this.grid[row + 1][col - 1].type !== CellType.WALL && this.grid[row + 1][col - 1].state === CellState.OPEN) {
-			this.grid[row + 1][col - 1].state = CellState.QUEUED;
-			this.grid[row + 1][col - 1].parent = currCell;
-			this.queue.push(this.grid[row + 1][col - 1]);
-			newlyQueued.push(this.grid[row + 1][col - 1]);
-		}		
 		return newlyQueued;
 	}
 
@@ -87,7 +68,7 @@ export class BFS implements PathfindingAlgorithm {
 		currCell.state = CellState.VISITED
 
 		// Add valid surrounding floor cells to queue and add to array for renderer to render them with a different border
-		const queuedCells: Cell[] = this.addSurroundingCellsToQueue(currCell)
+		const queuedCells: Cell[] = this.addNeighboursToQueue(currCell)
 
 		// Get cell that is used next step, if queue is not empty
 		let nextCell: Cell | null = null

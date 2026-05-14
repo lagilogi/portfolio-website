@@ -26,7 +26,7 @@ export interface Cell {
   type: CellType,
   state: CellState,
   parent: Cell | null,
-  weight: number | null,
+  cost: number | null,
 }
 
 export interface StepResult {

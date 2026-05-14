@@ -208,7 +208,8 @@ export class Game {
   // Creates individual cells to be added to the grid double array
   createCell(row: number, col: number, type: number): Cell {
     let cellType: CellType;
-    let cellState: CellState
+    let cellState: CellState;
+    let cost: number | null = null;
     switch (type) {
       case CellType.FLOOR:
         cellType = CellType.FLOOR;
@@ -221,6 +222,7 @@ export class Game {
       case CellType.START:
         cellType = CellType.START;
         cellState = CellState.OPEN;
+        cost = 0;
         break;
       case CellType.END:
         cellType = CellType.END;
@@ -235,7 +237,7 @@ export class Game {
       type: type,
       state: cellState!,
       parent: null,
-      weight: null
+      cost: cost
     }
   }
 

@@ -26,13 +26,20 @@ export interface Cell {
   type: CellType,
   state: CellState,
   parent: Cell | null,
-  cost: number | null,
+  startCost: number,
+  endCost: number,
+  totalCost: number,
 }
 
 export interface StepResult {
   currCell: Cell,
   nextCell: Cell | null
   queuedCells: Cell[],
+}
+
+export enum ShowCellData {
+  COST,
+  NONE,
 }
 
 export interface PathfindingAlgorithm {

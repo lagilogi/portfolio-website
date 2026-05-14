@@ -1,8 +1,9 @@
-import { Cell, CellType, CellState, StepResult, GameState, PathfindingAlgorithm, Maze } from './types'
+import { Cell, CellType, CellState, StepResult, GameState, PathfindingAlgorithm, Maze, ShowCellData } from './types'
 import mazes from './mazes'
 import { Renderer } from './Renderer';
 import { BFS } from './Bfs';
 import { DFS } from './Dfs';
+import { AStar } from './AStar';
 
 export class Game {
   startButton: HTMLElement;
@@ -16,6 +17,7 @@ export class Game {
   currMaze: Maze;
   grid!: Cell[][];
   path: Cell[];
+  showCellData: ShowCellData;
 
   algorithm: PathfindingAlgorithm;
   renderer: Renderer;
@@ -47,6 +49,7 @@ export class Game {
     this.grid = this.createGrid(this.currMaze.maze)
     this.path = []
     this.algorithm = new BFS(this.grid, this.currMaze, this.diagonal);
+    this.showCellData = ShowCellData.NONE;
 
     this.bindEvents()
   }
@@ -95,7 +98,7 @@ export class Game {
     const result: StepResult | null = this.algorithm.step();
 
     if (result !== null) {
-      this.renderer.renderStep(result);
+      this.renderer.renderStep(result, this.showCellData);
       if (result.currCell.type === CellType.END) {
         this.getPath(result.currCell);
         this.renderer.renderPath(this.path);
@@ -136,13 +139,20 @@ export class Game {
     switch (algorithmName) {
       case 'BFS':
         this.algorithm = new BFS(this.grid, this.currMaze, this.diagonal)
+        this.showCellData = ShowCellData.NONE
         break;
       case 'DFS':
         this.algorithm = new DFS(this.grid, this.currMaze, this.diagonal)
+        this.showCellData = ShowCellData.NONE
+        break;
+      case 'A*':
+        this.algorithm = new AStar(this.grid, this.currMaze, this.diagonal)
+        this.showCellData = ShowCellData.COST
         break;
 
       default:
         this.algorithm = new BFS(this.grid, this.currMaze, this.diagonal)
+        this.showCellData = ShowCellData.NONE
         break;
     }
 
@@ -209,7 +219,6 @@ export class Game {
   createCell(row: number, col: number, type: number): Cell {
     let cellType: CellType;
     let cellState: CellState;
-    let cost: number | null = null;
     switch (type) {
       case CellType.FLOOR:
         cellType = CellType.FLOOR;
@@ -222,7 +231,6 @@ export class Game {
       case CellType.START:
         cellType = CellType.START;
         cellState = CellState.OPEN;
-        cost = 0;
         break;
       case CellType.END:
         cellType = CellType.END;
@@ -237,7 +245,9 @@ export class Game {
       type: type,
       state: cellState!,
       parent: null,
-      cost: cost
+      startCost: 0,
+      endCost: 0,
+      totalCost: 0
     }
   }
 
@@ -263,7 +273,7 @@ export class Game {
         const result: StepResult | null = this.algorithm.step();
 
         if (result !== null) {
-          this.renderer.renderStep(result);
+          this.renderer.renderStep(result, this.showCellData);
           if (result.currCell.type === CellType.END) {
             this.getPath(result.currCell);
             this.renderer.renderPath(this.path);

@@ -42,6 +42,8 @@ export enum ShowCellData {
   NONE,
 }
 
+export const sliderSpeeds: number[] = [0, 50, 150, 300, 500];
+
 export interface PathfindingAlgorithm {
   grid: Cell[][]
   step(): StepResult | null,

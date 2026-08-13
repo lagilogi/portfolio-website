@@ -79,7 +79,7 @@ export class Renderer {
 		stepResult.queuedCells.forEach((cell) => {
 			cellDiv = document.getElementById(cell.id)!;
 			cellDiv.style.border = '4px inset var(--border)';
-			if (showCellData === ShowCellData.COST)
+			if (showCellData === ShowCellData.COST && cell.type !== CellType.END)
 				cellDiv.innerText = cell.totalCost.toString();
 		})
 

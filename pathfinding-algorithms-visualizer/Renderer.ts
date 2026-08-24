@@ -1,4 +1,4 @@
-import { Cell, CellType, StepResult } from "./types";
+import { Cell, CellType, StepResult, ShowCellData } from "./types";
 
 export class Renderer {
 	gridDiv: HTMLElement;
@@ -71,7 +71,7 @@ export class Renderer {
     return newCellDiv
 	}
 
-	renderStep(stepResult: StepResult) {
+	renderStep(stepResult: StepResult, showCellData: ShowCellData) {
 		let cellDiv: HTMLElement = document.getElementById(stepResult.currCell.id)!
 		cellDiv.style.background = 'yellowgreen';
 		cellDiv.style.border = '1px solid var(--border)';
@@ -79,11 +79,15 @@ export class Renderer {
 		stepResult.queuedCells.forEach((cell) => {
 			cellDiv = document.getElementById(cell.id)!;
 			cellDiv.style.border = '4px inset var(--border)';
+			if (showCellData === ShowCellData.COST && cell.type !== CellType.END)
+				cellDiv.innerText = cell.totalCost.toString();
 		})
 
 		if (stepResult.nextCell !== null) {
 			cellDiv = document.getElementById(stepResult.nextCell.id)!
 			cellDiv.style.border = '4px inset var(--accent)';
+			if (showCellData === ShowCellData.COST && stepResult.nextCell.type !== CellType.END)
+				cellDiv.innerText = stepResult.nextCell.totalCost.toString();
 		}
 	}
 	

@@ -26,7 +26,9 @@ export interface Cell {
   type: CellType,
   state: CellState,
   parent: Cell | null,
-  weight: number | null,
+  startCost: number,
+  endCost: number,
+  totalCost: number,
 }
 
 export interface StepResult {
@@ -34,6 +36,13 @@ export interface StepResult {
   nextCell: Cell | null
   queuedCells: Cell[],
 }
+
+export enum ShowCellData {
+  COST,
+  NONE,
+}
+
+export const sliderSpeeds: number[] = [0, 50, 150, 300, 500];
 
 export interface PathfindingAlgorithm {
   grid: Cell[][]

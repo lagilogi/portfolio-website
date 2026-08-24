@@ -85,11 +85,11 @@
             <select id="algorithmSelectDropdown" class="dropdown">
               <option>BFS</option>
               <option>DFS</option>
-              <option disabled>A*</option>
+              <option>A*</option>
               <option disabled>Dijkstra</option>
             </select>
           </div>
-          <div id="diagonalCheckbox">
+          <div id="diagonalCheck" class="select">
             <label for="diagonalCheckbox">Diagonal</label>
             <input type="checkbox" id="diagonalCheckbox" name="diagonalCheckbox" />
           </div>
@@ -115,13 +115,33 @@
 
       <section id="about">
         <h2>About the Pathfinding project</h2>
-        <p>The pathfinding project stems from a technical assignment I had to do for a job interview, where I just had to write an algorithm to solve a maze. I found it such a fun project that I thought it would be cool to make a visualizer for the different algorithms there are. Besides, it teaches me more about the different algorithms and Object Oriented Programming in TypeScript.</p>
+        <p class="intro">The pathfinding project stems from a technical assignment I had to do for a job interview, where I just had to write an algorithm to solve a maze. I found it such a fun project that I thought it would be cool to make a visualizer for the different algorithms there are. Besides, it teaches me more about the different algorithms and Object Oriented Programming in TypeScript.</p>
         <h3>Lessons, Challenges & Hurdles</h3>
         <ul>
-          <li><b>Lesson:</b> </li>
-          <li><b>Challenge:</b> </li>
-          <li><b>Hurdle:</b> </li>
+          <li><b>Lesson:</b> Learn about the 4 most well-known different pathfinding algorithms: <abbr title="Breadth First Search">BFS</abbr>, <abbr title="Depth First Search">DFS</abbr>, A* and Dijkstra</li>
+          <li><b>Lesson:</b> Learn about dependency injection and to use it. The main 'Game' class has a reference to the current algorithm. When you switch the algorithm, another algorithm object will be injected, and its own algorithm-specific steps will be executed.</li>
+          <li><b>Lesson:</b> Build an interface that is easy to understand for users and when the users changes a setting, update what they see.</li>
+          <li><b>Hurdle:</b> Although DFS is a pretty easy to understand algorithm, it is a lot harder to make it visually make sense. The way to write the algorithm in code looks different in a 2D grid, than how I'd like to visualize it in the maze. This made me rethink on how to approach this specific algorithm. NOTE: The DFS visualization currently works the way the algorithm works, but might look confusing. I might change this at some point.</li>
         </ul>
+
+        <h3>The algorithms explained</h3>
+        <p>As you've seen above, there are 4 different algorithms.</p>
+        
+        <h4>BFS</h4>
+        <p>The Breadth First Search algorithm basically works like dropping something in the water. You see the ripples in the water expand in every direction. BFS works the same. It looks around itself until it has found the thing (the Exit in our case) that it is looking for.</p>
+        <p>As long as the cells have no specific weight or terrain cost, it will always find the quickest path. This algorithm is probably used the best for checking inside a map if you can reach all or certain cells/things/items and you don't know where they might be in the map.</p>
+
+        <h4>DFS</h4>
+        <p>With the Depth First Search algorithm you keep running in a specific direction until you hit a dead end. Then it backtracks to the last 'intersection' it saw, and moves in a different direction until it can move in the initial direction or is blocked again. Then, again, it moves in another direction until it can move in the initial direction, is blocked again or found the thing it is looking for.</p>
+        <p>The DFS algorithm doesn't really show its best advantage here in a 2D grid. It can be extremely fast, very slow, and everything inbetween here. It is best used when you want to know if a specific path leads to a specific wanted or unwanted outcome.</p>
+
+        <h4>A*</h4>
+        <p>This algorithm is the best to use when you know your starting AND endpoint. It estimates the distance to the endpoint (often using the Manhatten Distance or Pythagoras' Theorem for diagnal movement), and adds to that the distance it has already gone from the start. It does this for all of the neighbouring cells from the cell you are at that moment. Whatever cells has the lowest calculated value is going to be next cell to visit.</p>
+        <p>A* will always find the shortest path if there is a valid path.</p>
+
+        <h4>Dijkstra</h4>
+        <p>Let's say you have a 2D game map and there are roads, mountains and rivers. Travelling over the roads cost you only 1 turn. But if you want to traverse over a river or mountain, it could cost you 3 or 5 turns to traverse over that single cell. Dijkstra's algorithm is like BFS. It checks every cell, but it keeps in mind that traversing over certain cells is more costly.</p>
+        <p>It will always give you the shortest path based on amount of 'turns' it would cost to get from A to B. So on the map it might not be a straight line, but you will get there in the shortest amount of turns.</p>
       </section>
     </main>
 

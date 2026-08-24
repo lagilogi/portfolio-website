@@ -20,58 +20,39 @@ export class DFS implements PathfindingAlgorithm {
 		return this.grid[row][col]
 	}
 
-	addSurroundingCellsToStack(currCell: Cell): Cell[] {
-		const row: number = currCell.row;
-		const col: number = currCell.col;
+	addNeighboursToStack(currCell: Cell): Cell[] {
 		const newlyQueued: Cell[] = [];
 
-		if (this.diagonal === true && this.grid[row + 1][col - 1].type !== CellType.WALL && this.grid[row + 1][col - 1].state === CellState.OPEN) {
-			this.grid[row + 1][col - 1].state = CellState.QUEUED;
-			this.grid[row + 1][col - 1].parent = currCell;
-			this.stack.push(this.grid[row + 1][col - 1])
-			newlyQueued.push(this.grid[row + 1][col - 1]);
-		}
-		if (this.grid[row][col - 1].type !== CellType.WALL && this.grid[row][col - 1].state === CellState.OPEN) {
-			this.grid[row][col - 1].state = CellState.QUEUED;
-			this.grid[row][col - 1].parent = currCell;
-			this.stack.push(this.grid[row][col - 1])
-			newlyQueued.push(this.grid[row][col - 1]);
-		}
-		if (this.diagonal === true && this.grid[row - 1][col - 1].type !== CellType.WALL && this.grid[row - 1][col - 1].state === CellState.OPEN) {
-			this.grid[row - 1][col - 1].state = CellState.QUEUED;
-			this.grid[row - 1][col - 1].parent = currCell;
-			this.stack.push(this.grid[row - 1][col - 1])
-			newlyQueued.push(this.grid[row - 1][col - 1]);
-		}
-		if (this.grid[row - 1][col].type !== CellType.WALL && this.grid[row - 1][col].state === CellState.OPEN) {
-			this.grid[row - 1][col].state = CellState.QUEUED;
-			this.grid[row - 1][col].parent = currCell;
-			this.stack.push(this.grid[row - 1][col])
-			newlyQueued.push(this.grid[row - 1][col]);
-		}
-		if (this.diagonal === true && this.grid[row - 1][col + 1].type !== CellType.WALL && this.grid[row - 1][col + 1].state === CellState.OPEN) {
-			this.grid[row - 1][col + 1].state = CellState.QUEUED;
-			this.grid[row - 1][col + 1].parent = currCell;
-			this.stack.push(this.grid[row - 1][col + 1])
-			newlyQueued.push(this.grid[row - 1][col + 1]);
-		}
-		if (this.grid[row][col + 1].type !== CellType.WALL && this.grid[row][col + 1].state === CellState.OPEN) {
-			this.grid[row][col + 1].state = CellState.QUEUED;
-			this.grid[row][col + 1].parent = currCell;
-			this.stack.push(this.grid[row][col + 1])
-			newlyQueued.push(this.grid[row][col + 1]);
-		}
-		if (this.diagonal === true && this.grid[row + 1][col + 1].type !== CellType.WALL && this.grid[row + 1][col + 1].state === CellState.OPEN) {
-			this.grid[row + 1][col + 1].state = CellState.QUEUED;
-			this.grid[row + 1][col + 1].parent = currCell;
-			this.stack.push(this.grid[row + 1][col + 1]);
-			newlyQueued.push(this.grid[row + 1][col + 1]);
-		}
-		if (this.grid[row + 1][col].type !== CellType.WALL && this.grid[row + 1][col].state === CellState.OPEN) {
-			this.grid[row + 1][col].state = CellState.QUEUED;
-			this.grid[row + 1][col].parent = currCell;
-			this.stack.push(this.grid[row + 1][col]);
-			newlyQueued.push(this.grid[row + 1][col]);
+		const directions = this.diagonal
+			? [
+				[1, -1],
+				[0, -1],
+				[-1, -1],
+				[-1, 0],
+				[-1, 1],
+				[0, 1],
+				[1, 1],
+				[1, 0]
+			]
+			: [
+				[0, -1],
+				[-1, 0],
+				[0, 1],
+				[1, 0]
+			]
+		
+		for (const [rowOffset, colOffset] of directions) {
+			const row = currCell.row + rowOffset;
+			const col = currCell.col + colOffset;
+			const neighbour = this.grid[row][col];
+
+			if (neighbour.type !== CellType.WALL && neighbour.state === CellState.OPEN) {
+				neighbour.state = CellState.QUEUED;
+				neighbour.parent = currCell;
+
+				this.stack.push(neighbour);
+				newlyQueued.push(neighbour);
+			}
 		}
 		return newlyQueued;
 	}
@@ -87,7 +68,7 @@ export class DFS implements PathfindingAlgorithm {
 		currCell.state = CellState.VISITED
 
 		// Add valid surrounding cells to stack
-		const queuedCells: Cell[] = this.addSurroundingCellsToStack(currCell)
+		const queuedCells: Cell[] = this.addNeighboursToStack(currCell)
 
 		// Get cell that is used next step, if queue is not empty
 		let nextCell: Cell | null = null

@@ -1,8 +1,10 @@
-import { Cell, CellType, CellState, StepResult, GameState, PathfindingAlgorithm, Maze } from './types'
+import { Cell, CellType, CellState, StepResult, GameState, PathfindingAlgorithm, Maze, ShowCellData } from './types'
 import mazes from './mazes'
 import { Renderer } from './Renderer';
 import { BFS } from './Bfs';
 import { DFS } from './Dfs';
+import { AStar } from './AStar';
+import { sliderSpeeds } from './types';
 
 export class Game {
   startButton: HTMLElement;
@@ -16,6 +18,7 @@ export class Game {
   currMaze: Maze;
   grid!: Cell[][];
   path: Cell[];
+  showCellData: ShowCellData;
 
   algorithm: PathfindingAlgorithm;
   renderer: Renderer;
@@ -23,7 +26,6 @@ export class Game {
   stepTime: number;
   timePassed: number;
   lastTimestamp: number;
-  nextStep: boolean;
   diagonal: boolean;
 
   constructor() {
@@ -37,16 +39,16 @@ export class Game {
 
     this.renderer = new Renderer();
     this.state = GameState.READY;
-    this.stepTime = 100;
+    this.stepTime = sliderSpeeds[2];
     this.timePassed = this.stepTime + 1;
     this.lastTimestamp = 0;
-    this.nextStep = false;
     this.diagonal = false;
 
     this.currMaze = mazes[0]
     this.grid = this.createGrid(this.currMaze.maze)
     this.path = []
     this.algorithm = new BFS(this.grid, this.currMaze, this.diagonal);
+    this.showCellData = ShowCellData.NONE;
 
     this.bindEvents()
   }
@@ -74,10 +76,13 @@ export class Game {
       this.lastTimestamp = performance.now();
       requestAnimationFrame(this.loop);
     }
-    else if (this.state === GameState.PAUSED)
+    else if (this.state === GameState.PAUSED) {
       this.state = GameState.RUNNING;
+        requestAnimationFrame(this.loop);
+    }
     else if (this.state === GameState.RUNNING)
       this.state = GameState.PAUSED;
+      this.timePassed = this.stepTime;
   }
 
   // Moves only the next step. If the visualizer was already running, it pauses it.
@@ -89,7 +94,7 @@ export class Game {
     const result: StepResult | null = this.algorithm.step();
 
     if (result !== null) {
-      this.renderer.renderStep(result);
+      this.renderer.renderStep(result, this.showCellData);
       if (result.currCell.type === CellType.END) {
         this.getPath(result.currCell);
         this.renderer.renderPath(this.path);
@@ -130,13 +135,20 @@ export class Game {
     switch (algorithmName) {
       case 'BFS':
         this.algorithm = new BFS(this.grid, this.currMaze, this.diagonal)
+        this.showCellData = ShowCellData.NONE
         break;
       case 'DFS':
         this.algorithm = new DFS(this.grid, this.currMaze, this.diagonal)
+        this.showCellData = ShowCellData.NONE
+        break;
+      case 'A*':
+        this.algorithm = new AStar(this.grid, this.currMaze, this.diagonal)
+        this.showCellData = ShowCellData.COST
         break;
 
       default:
         this.algorithm = new BFS(this.grid, this.currMaze, this.diagonal)
+        this.showCellData = ShowCellData.NONE
         break;
     }
 
@@ -154,19 +166,19 @@ export class Game {
 
     switch (slider.value) {
       case '1':
-        this.stepTime = 500;
+        this.stepTime = sliderSpeeds[4];
         break;
       case '2':
-        this.stepTime = 300;
+        this.stepTime = sliderSpeeds[3];
         break;
       case '3':
-        this.stepTime = 150;
+        this.stepTime = sliderSpeeds[2];
         break;
       case '4':
-        this.stepTime = 50;
+        this.stepTime = sliderSpeeds[1];
         break;
       case '5':
-        this.stepTime = 0;
+        this.stepTime = sliderSpeeds[0];
         break;
     }
   }
@@ -202,7 +214,7 @@ export class Game {
   // Creates individual cells to be added to the grid double array
   createCell(row: number, col: number, type: number): Cell {
     let cellType: CellType;
-    let cellState: CellState
+    let cellState: CellState;
     switch (type) {
       case CellType.FLOOR:
         cellType = CellType.FLOOR;
@@ -229,7 +241,9 @@ export class Game {
       type: type,
       state: cellState!,
       parent: null,
-      weight: null
+      startCost: 0,
+      endCost: 0,
+      totalCost: 0
     }
   }
 
@@ -250,12 +264,12 @@ export class Game {
     this.lastTimestamp = timestamp;
     if (this.state === GameState.RUNNING) {
       this.timePassed += deltaTime;
-      if (this.timePassed > this.stepTime) {
-        this.timePassed -= this.stepTime;
+      if (this.timePassed >= this.stepTime) {
+        this.timePassed = 0;
         const result: StepResult | null = this.algorithm.step();
 
         if (result !== null) {
-          this.renderer.renderStep(result);
+          this.renderer.renderStep(result, this.showCellData);
           if (result.currCell.type === CellType.END) {
             this.getPath(result.currCell);
             this.renderer.renderPath(this.path);

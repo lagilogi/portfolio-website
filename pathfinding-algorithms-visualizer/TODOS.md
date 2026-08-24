@@ -1,7 +1,7 @@
 ### TODOS for Pathfinding ###
 
 #### Priority ####
-- Add A* algo
+- ~~Add A* algo~~
 - Add Dijkstra algo
 - ~~Add diagonal~~
 

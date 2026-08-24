@@ -63,7 +63,7 @@ h2 {
   align-self: center;
 }
 .profile-img:hover {
-  border-color: var(--accent)
+  border-color: var(--accent);
 }
 .profile-img:active {
   border-color: blue;
@@ -265,17 +265,13 @@ h2 {
   border: 1px var(--border) solid;
   border-radius: 15px;
   background: var(--bg);
-  box-shadow: 4px 4px 30px -20px var(--box-shadow);
   overflow: hidden;
-  transition: all .2s ease;
 }
 .project-card:hover {
-  box-shadow: 0 0 20px 1px var(--accent);
-  transform: scale(1.01);
+  box-shadow: 0 0 10px 5px var(--accent);
 }
 .project-locked:hover {
   box-shadow: none;
-  transform: scale(1);
 }
 .project-card img {
   width: 100%;
@@ -318,8 +314,7 @@ h2 {
   cursor: default;
 }
 .project-information li:active, .project-information li:hover {
-  background: var(--accent);
-  color: black;
+  background: var(--border);
 }
 .project-information a {
   max-width: 200px;
@@ -334,7 +329,8 @@ h2 {
 }
 .project-link-working:hover {
   border: 1px solid var(--accent);
-  color: var(--accent);
+  background-color: var(--accent);
+
 }
 
 .project-link-locked {
